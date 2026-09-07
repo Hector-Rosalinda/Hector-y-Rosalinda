@@ -1006,31 +1006,33 @@
   </section>
 
   <!-- =========================================================
-       SECCIÓN 6: RSVP / CONFIRMAR ASISTENCIA
+       SECCIÓN 6: RSVP / CONFIRMAR ASISTENCIA CON WHATSAPP
   ========================================================== -->
   <section class="seccion-rsvp">
     <h2 class="titulo-rsvp">Confirma tu asistencia</h2>
     
     <div class="info-invitado-container">
       <div class="info-invitado" id="infoInvitado">
-        <small>🔑 Ingresa tu código en la URL</small>
+        <small>🔑 Ingresa tu invitación en la URL</small>
       </div>
     </div>
 
+    <!-- Formulario de confirmación -->
     <form class="form-rsvp hidden" id="formRSVP">
-      <select id="asistencia">
+      <select id="asistencia" required>
         <option value="SI">🎉 ¡Sí, ahí estaré!</option>
         <option value="NO">😢 No podré asistir</option>
       </select>
       
-      <input type="number" id="confirmados" min="0" placeholder="¿Cuántos pases usarás?" />
+      <input type="number" id="confirmados" min="1" placeholder="¿Cuántos pases usarás?" required />
       
-      <input type="tel" id="telefono" placeholder="Tu WhatsApp (opcional)" />
+      <input type="tel" id="telefono" placeholder="Tu número de WhatsApp (opcional)" />
       
-      <textarea id="mensaje" placeholder="Mensaje para los novios"></textarea>
+      <textarea id="mensaje" placeholder="Mensaje para los novios (opcional)"></textarea>
       
-      <button type="submit" class="btn-enviar-rsvp" id="btnEnviarRSVP">
-        Enviar Confirmación
+      <!-- Botón que abre WhatsApp -->
+      <button type="button" class="btn-enviar-rsvp" id="btnWhatsApp">
+        💬 Enviar confirmación por WhatsApp
       </button>
       
       <div class="status-rsvp" id="statusRSVP"></div>
@@ -1039,12 +1041,12 @@
     <div class="sin-codigo" id="sinCodigo">
       ¿No tienes código?
       <br>Pide tu invitación personalizada a Héctor y Rosalinda.
-      <small>Ejemplo: ...github.io/Hector_y_Rosalinda/?c=HYR001</small>
+      <small>Ejemplo: ...github.io/Hector_y_Rosalinda/?d=eyJuIjoiUHJ1ZWJhIiwiYyI6IkhZUjAwMSIsInAiOjR9</small>
     </div>
   </section>
 
   <!-- =========================================================
-       JAVASCRIPT
+       JAVASCRIPT - VERSIÓN WHATSAPP
   ========================================================== -->
   <script>
     /* =========================================================
@@ -1181,43 +1183,136 @@
     }
 
     /* =========================================================
-       RSVP / CONFIRMAR ASISTENCIA
+       RSVP CON WHATSAPP - VERSIÓN BASE64
     ========================================================== */
-// Lee ?d=eyJuIjoi... (base64 utf-8)
-function obtenerInvitado() {
-  const params = new URLSearchParams(window.location.search);
-  const d = params.get('d');
-  const c = params.get('c'); // por si aún usas los viejos
-  
-  if (d) {
-    try {
-      // Decodifica base64 con acentos
-      const decoded = decodeURIComponent(escape(atob(d)));
-      const data = JSON.parse(decoded);
-      return data; // {n: "Juan Pérez", p: 2, c: "HYR001PI-2"}
-    } catch(e) {
-      console.log("Error decodificando d", e);
+    function obtenerInvitadoDesdeURL() {
+      const params = new URLSearchParams(window.location.search);
+      const datoBase64 = params.get('d');
+      
+      if (!datoBase64) return null;
+      
+      try {
+        const textoDecodificado = atob(datoBase64);
+        const datos = JSON.parse(textoDecodificado);
+        return datos;
+      } catch (error) {
+        console.error('Error decodificando datos:', error);
+        return null;
+      }
     }
-  }
-  return null;
-}
 
-const invitado = obtenerInvitado();
+    function iniciarRSVP() {
+      const invitado = obtenerInvitadoDesdeURL();
+      const infoInvitado = document.getElementById('infoInvitado');
+      const formRSVP = document.getElementById('formRSVP');
+      const sinCodigo = document.getElementById('sinCodigo');
+      const statusRSVP = document.getElementById('statusRSVP');
+      const btnWhatsApp = document.getElementById('btnWhatsApp');
 
-if (invitado) {
-  // Pinta el nombre y pases
-  if(document.getElementById('nombre-invitado')) 
-    document.getElementById('nombre-invitado').innerText = invitado.n;
-    
-  if(document.getElementById('pases')) 
-    document.getElementById('pases').innerText = invitado.p;
+      // NÚMERO DE TELÉFONO DE LOS NOVIOS (CON CÓDIGO DE PAÍS)
+      const NUMERO_NOVIOS = "521234567890"; // ⚠️ CAMBIA ESTE NÚMERO
 
-  console.log("Invitado:", invitado);
-} else {
-  // Si no hay ?d=, muestra genérico
-  if(document.getElementById('nombre-invitado')) 
-    document.getElementById('nombre-invitado').innerText = "Familia";
-}
+      if (!invitado) {
+        infoInvitado.innerHTML = `
+          <small>🔑 Ingresa tu invitación en la URL</small>
+          <br><br>
+          <span style="font-size:0.9rem; color:rgba(255,255,255,0.3);">
+            Usa el enlace que recibiste por WhatsApp
+          </span>
+        `;
+        return;
+      }
+
+      sinCodigo.style.display = 'none';
+      
+      infoInvitado.innerHTML = `
+        <strong>Hola ${invitado.n || 'invitado'}</strong><br>
+        Tienes <strong style="color:var(--azul-principal)">${invitado.p || 0}</strong> pases reservados<br>
+        <small>Código: ${invitado.c || '---'}</small>
+      `;
+
+      formRSVP.classList.remove('hidden');
+
+      // Valores por defecto
+      const selectAsistencia = document.getElementById('asistencia');
+      const inputConfirmados = document.getElementById('confirmados');
+      const inputTelefono = document.getElementById('telefono');
+      const textareaMensaje = document.getElementById('mensaje');
+
+      if (invitado.p) {
+        inputConfirmados.max = invitado.p;
+        inputConfirmados.value = invitado.p;
+      }
+
+      // Botón de WhatsApp
+      btnWhatsApp.addEventListener('click', function() {
+        const asistencia = selectAsistencia.value;
+        const confirmados = parseInt(inputConfirmados.value) || 0;
+        const telefono = inputTelefono.value.trim();
+        const mensaje = textareaMensaje.value.trim();
+
+        // Validaciones
+        if (confirmados < 1) {
+          statusRSVP.textContent = '⚠️ Por favor, indica cuántos pases usarás';
+          statusRSVP.style.color = '#ff9800';
+          return;
+        }
+
+        if (confirmados > (invitado.p || 0)) {
+          statusRSVP.textContent = `⚠️ Solo tienes ${invitado.p} pases disponibles`;
+          statusRSVP.style.color = '#ff9800';
+          return;
+        }
+
+        // Construir mensaje para WhatsApp
+        const asistenciaTexto = asistencia === 'SI' ? '🎉 SÍ, asistiré' : '😢 NO podré asistir';
+        const fecha = new Date().toLocaleString('es-MX', { 
+          timeZone: 'America/Mexico_City',
+          dateStyle: 'full',
+          timeStyle: 'short'
+        });
+
+        let mensajeWhatsApp = `📋 *Confirmación de asistencia - Boda Héctor & Rosalinda*%0A%0A`;
+        mensajeWhatsApp += `👨‍👩‍👧‍👦 *Familia:* ${invitado.n}%0A`;
+        mensajeWhatsApp += `✅ *Asistencia:* ${asistenciaTexto}%0A`;
+        mensajeWhatsApp += `👥 *Personas:* ${confirmados} de ${invitado.p} pases%0A`;
+        mensajeWhatsApp += `📅 *Fecha:* ${fecha}%0A`;
+        mensajeWhatsApp += `🔑 *Código:* ${invitado.c}%0A`;
+        
+        if (telefono) {
+          mensajeWhatsApp += `📱 *Teléfono:* ${telefono}%0A`;
+        }
+        
+        if (mensaje) {
+          mensajeWhatsApp += `%0A💬 *Mensaje:* ${mensaje}`;
+        }
+
+        mensajeWhatsApp += `%0A%0A¡Gracias por confirmar! 🙏`;
+
+        // URL de WhatsApp
+        const urlWhatsApp = `https://wa.me/${NUMERO_NOVIOS}?text=${mensajeWhatsApp}`;
+
+        // Abrir WhatsApp en nueva ventana
+        window.open(urlWhatsApp, '_blank');
+
+        // Mostrar mensaje de éxito
+        statusRSVP.textContent = '✅ ¡Mensaje enviado! Revisa WhatsApp para completar';
+        statusRSVP.style.color = '#4caf50';
+        btnWhatsApp.innerHTML = '✅ Confirmación enviada';
+
+        // Guardar en localStorage para referencia
+        try {
+          const datos = {
+            asistencia: asistencia,
+            confirmados: confirmados,
+            telefono: telefono,
+            mensaje: mensaje,
+            fecha: new Date().toISOString()
+          };
+          localStorage.setItem(`invitado_${invitado.c}`, JSON.stringify(datos));
+        } catch (e) {}
+      });
+    }
 
     /* =========================================================
        INICIALIZACIÓN GLOBAL
@@ -1228,7 +1323,6 @@ if (invitado) {
       const rep = new ReproductorMusica();
       iniciarRSVP();
       
-      // Fallback: el primer clic en cualquier parte de la página inicia la música
       document.addEventListener('click', () => {
         if (rep.audio && !rep.estaReproduciendo) {
           rep.reproducir();
