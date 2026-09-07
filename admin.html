@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Boda</title>
+</head>
+<body>
+<h2>Crear invitado</h2>
+<input id="token" placeholder="Pega tu github_pat_..." style="width:90%"><br><br>
+<input id="nombre" placeholder="Nombre: Juan y Familia"><br><br>
+<input id="pases" type="number" placeholder="Pases: 2"><br><br>
+<button onclick="crear()">Crear y Generar Link</button>
+<p id="resultado"></p>
+<hr>
+<h3>Invitados guardados</h3>
+<button onclick="cargarTabla()">Actualizar lista</button>
+<table border="1" id="tabla" style="width:100%"></table>
+<script>
+const REPO = "hector-rosalinda/Hector-y-Rosalinda";
+const FILE = "invitados.json";
+const URL_BASE = "https://hector-rosalinda.github.io/Hector-y-Rosalinda/?d=";
+
+async function crear(){
+  const token = document.getElementById('token').value.trim();
+  const nombre = document.getElementById('nombre').value.trim();
+  const pases = document.getElementById('pases').value.trim();
+  if(!token || !nombre || !pases) return alert("Llena todo");
+  
+  const codigo = "HYR" + Math.random().toString(36).substr(2,4).toUpperCase() + "-" + pases;
+  const nuevo = {c: codigo, n: nombre, p: parseInt(pases), confirmado: ""};
+
+  // 1. Leer json actual
+  let res = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`, {
+    headers: {Authorization: `Bearer ${token}`}
+  });
+  let fileData = await res.json();
+  let lista = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+
+  // 2. Agregar nuevo
+  lista.push(nuevo);
+
+  // 3. Guardar de nuevo
+  await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`, {
+    method: "PUT",
+    headers: {Authorization: `Bearer ${token}`, "Content-Type": "application/json"},
+    body: JSON.stringify({
+      message: `Nuevo invitado ${codigo}`,
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(lista, null, 2)))),
+      sha: fileData.sha
+    })
+  });
+
+  // 4. Generar link base64
+  let json = JSON.stringify(nuevo);
+  let b64 = btoa(unescape(encodeURIComponent(json)));
+  let link = URL_BASE + b64;
+
+  document.getElementById('resultado').innerHTML = `
+    <b>${nombre} creado:</b><br>
+    Código: ${codigo}<br>
+    <a href="${link}" target="_blank">${link}</a><br><br>
+    <a href="https://wa.me/?text=${encodeURIComponent("Hola " + nombre + "! Te invito a mi boda: " + link)}">Enviar por WhatsApp</a>
+  `;
+}
+async function cargarTabla(){
+  const token = document.getElementById('token').value.trim();
+  if(!token) return alert("Pega tu token primero");
+  let res = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`, {
+    headers: {Authorization: `Bearer ${token}`}
+  });
+  let fileData = await res.json();
+  let lista = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+  
+  let html = "<tr><th>Código</th><th>Nombre</th><th>Pases</th><th>Confirmado</th><th>Link</th></tr>";
+  lista.forEach(i => {
+    let b64 = btoa(unescape(encodeURIComponent(JSON.stringify(i))));
+    let link = URL_BASE + b64;
+    html += `<tr>
+      <td>${i.c}</td>
+      <td>${i.n}</td>
+      <td>${i.p}</td>
+      <td>${i.confirmado ? "✅ " + i.confirmado.substr(0,10) : "❌"}</td>
+      <td><a href="${link}" target="_blank">Ver</a></td>
+    </tr>`;
+  });
+  document.getElementById('tabla').innerHTML = html;
+}
+</script>
+</body>
+</html>
