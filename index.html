@@ -1183,98 +1183,41 @@
     /* =========================================================
        RSVP / CONFIRMAR ASISTENCIA
     ========================================================== */
-    function iniciarRSVP() {
-      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwd4UKhL-VTm1SBtAPVtNIuFpsIikCoVHsM54ZQ7f8JOzI9VS6XrlUqAE4klY1YX8xLdg/exec";
-      const params = new URLSearchParams(location.search);
-      const codigo = (params.get("c") || "").toUpperCase();
-
-      const infoInvitado = document.getElementById('infoInvitado');
-      const formRSVP = document.getElementById('formRSVP');
-      const sinCodigo = document.getElementById('sinCodigo');
-      const statusRSVP = document.getElementById('statusRSVP');
-      const btnEnviar = document.getElementById('btnEnviarRSVP');
-
-      if (!codigo) {
-        infoInvitado.innerHTML = '🔑 Ingresa tu código en la URL';
-        return;
-      }
-
-      sinCodigo.style.display = 'none';
-      infoInvitado.innerHTML = 'Buscando invitación...';
-
-      fetch(`${SCRIPT_URL}?c=${codigo}`)
-        .then(r => r.json())
-        .then(data => {
-          if (data.error) {
-            infoInvitado.innerHTML = `❌ ${data.error}`;
-            return;
-          }
-
-          let html = `
-            <strong>Hola ${data.familia}</strong><br>
-            Tienes <strong style="color:var(--azul-principal)">${data.pases}</strong> pases reservados<br>
-            <small>Código: ${data.codigo}</small>
-          `;
-
-          if (data.asistencia !== "PENDIENTE") {
-            html += `<br><span class="estado-confirmado">✅ Ya confirmaste: ${data.asistencia} (${data.confirmados})</span>`;
-          }
-
-          infoInvitado.innerHTML = html;
-          formRSVP.classList.remove('hidden');
-
-          document.getElementById('confirmados').max = data.pases;
-          document.getElementById('confirmados').value = data.confirmados || data.pases;
-          document.getElementById('asistencia').value = data.asistencia !== "PENDIENTE" ? data.asistencia : "SI";
-
-          // Configurar el submit del formulario
-          formRSVP.addEventListener('submit', (e) => {
-            e.preventDefault();
-            btnEnviar.textContent = 'Enviando...';
-            btnEnviar.disabled = true;
-            statusRSVP.textContent = '';
-
-            fetch(SCRIPT_URL, {
-              method: 'POST',
-              body: JSON.stringify({
-                codigo: codigo,
-                asistencia: document.getElementById('asistencia').value,
-                confirmados: document.getElementById('confirmados').value,
-                mensaje: document.getElementById('mensaje').value,
-                telefono: document.getElementById('telefono').value
-              })
-            })
-            .then(r => r.json())
-            .then(res => {
-              statusRSVP.textContent = res.ok ? '✅ ¡Gracias! Guardado en el Sheet' : '❌ Error al guardar';
-              statusRSVP.style.color = res.ok ? '#4caf50' : '#ff4444';
-              btnEnviar.textContent = res.ok ? '✅ Confirmado' : 'Reintentar';
-              btnEnviar.disabled = false;
-              
-              if (res.ok) {
-                // Actualizar la info del invitado
-                const asistenciaVal = document.getElementById('asistencia').value;
-                const confirmadosVal = document.getElementById('confirmados').value;
-                infoInvitado.innerHTML = `
-                  <strong>Hola ${data.familia}</strong><br>
-                  Tienes <strong style="color:var(--azul-principal)">${data.pases}</strong> pases reservados<br>
-                  <small>Código: ${data.codigo}</small>
-                  <br><span class="estado-confirmado">✅ Confirmaste: ${asistenciaVal} (${confirmadosVal})</span>
-                `;
-              }
-            })
-            .catch(() => {
-              statusRSVP.textContent = '❌ Error de red';
-              statusRSVP.style.color = '#ff4444';
-              btnEnviar.textContent = 'Reintentar';
-              btnEnviar.disabled = false;
-            });
-          });
-        })
-        .catch(() => {
-          infoInvitado.innerHTML = '❌ Error conectando al servidor';
-        });
+// Lee ?d=eyJuIjoi... (base64 utf-8)
+function obtenerInvitado() {
+  const params = new URLSearchParams(window.location.search);
+  const d = params.get('d');
+  const c = params.get('c'); // por si aún usas los viejos
+  
+  if (d) {
+    try {
+      // Decodifica base64 con acentos
+      const decoded = decodeURIComponent(escape(atob(d)));
+      const data = JSON.parse(decoded);
+      return data; // {n: "Juan Pérez", p: 2, c: "HYR001PI-2"}
+    } catch(e) {
+      console.log("Error decodificando d", e);
     }
+  }
+  return null;
+}
+
+const invitado = obtenerInvitado();
+
+if (invitado) {
+  // Pinta el nombre y pases
+  if(document.getElementById('nombre-invitado')) 
+    document.getElementById('nombre-invitado').innerText = invitado.n;
+    
+  if(document.getElementById('pases')) 
+    document.getElementById('pases').innerText = invitado.p;
+
+  console.log("Invitado:", invitado);
+} else {
+  // Si no hay ?d=, muestra genérico
+  if(document.getElementById('nombre-invitado')) 
+    document.getElementById('nombre-invitado').innerText = "Familia";
+}
 
     /* =========================================================
        INICIALIZACIÓN GLOBAL
