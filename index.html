@@ -1184,7 +1184,7 @@
        RSVP / CONFIRMAR ASISTENCIA
     ========================================================== */
     function iniciarRSVP() {
-      const API_URL = "https://script.google.com/macros/s/AKfycbwd4UKhL-VTm1SBtAPVtNIuFpsIikCoVHsM54ZQ7f8JOzI9VS6XrlUqAE4klY1YX8xLdg/exec";
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwd4UKhL-VTm1SBtAPVtNIuFpsIikCoVHsM54ZQ7f8JOzI9VS6XrlUqAE4klY1YX8xLdg/exec";
       const params = new URLSearchParams(location.search);
       const codigo = (params.get("c") || "").toUpperCase();
 
@@ -1202,7 +1202,7 @@
       sinCodigo.style.display = 'none';
       infoInvitado.innerHTML = 'Buscando invitación...';
 
-      fetch(`${API_URL}?c=${codigo}`)
+      fetch(`${SCRIPT_URL}?c=${codigo}`)
         .then(r => r.json())
         .then(data => {
           if (data.error) {
@@ -1234,7 +1234,7 @@
             btnEnviar.disabled = true;
             statusRSVP.textContent = '';
 
-            fetch(API_URL, {
+            fetch(SCRIPT_URL, {
               method: 'POST',
               body: JSON.stringify({
                 codigo: codigo,
