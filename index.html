@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Héctor & Rosalinda - Nuestra Boda</title>
+  <title>Mi Página Web</title>
 
   <!-- Fuentes: Great Vibes (cursiva) y Playfair Display (elegante para listas) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,399 +11,516 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
   <style>
-/* =========================================================
-   VARIABLES GLOBALES Y RESET
-========================================================= */
-:root {
-  --altura-seccion: 550px;
-  --azul-principal: #0096ff;
-  --azul-brillante: #00d4ff;
-  --azul-oscuro: #0040ff;
-  --perimetro: 677.08;
-  --linea: 110;
-  --vacio: 567.08;
-}
+    /* =========================================================
+       VARIABLES GLOBALES
+    ========================================================= */
+    :root {
+      --altura-seccion: 550px;
+      --azul-principal: #0096ff;
+      --azul-brillante: #00d4ff;
+      --azul-oscuro: #0040ff;
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+      /* Perímetro exacto del rectángulo (180×180, rx=25): 677.08 */
+      --perimetro: 677.08;
+      --linea: 110;
+      --vacio: 567.08;
+    }
 
-html, body {
-  margin: 0; padding: 0; width: 100%; overflow-x: hidden;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  background-color: #0a0a0f;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  color: #fff;
-}
+    body {
+      background-color: #0a0a0f;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow-x: hidden;
+    }
 
-/* =========================================================
-   SECCIÓN 1 - MARCO E IMAGEN
-========================================================= */
-.image-container {
-  display: flex; justify-content: center; align-items: center;
-  width: 100%; max-width: 100vw; overflow: hidden;
-}
-.image-container img { max-width: 100%; height: auto; object-fit: cover; display: block; }
+    /* =========================================================
+       SECCIÓN 1 - MARCO
+    ========================================================= */
+    .seccion-completa {
+      width: 100vw;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #0f1a2e, #050508);
+    }
 
-.seccion-completa {
-  width: 100vw; height: 100vh; min-height: 600px;
-  display: flex; justify-content: center; align-items: center;
-  background: radial-gradient(circle at center, #0f1a2e, #050508);
-}
+    .marco-contenedor {
+      background: #0f141f;
+      border-radius: 30px;
+      padding: 40px;
+      box-shadow: 0 0 80px rgba(0, 150, 255, 0.15);
+      position: relative;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-.marco-contenedor {
-  background: none; border-radius: 30px; padding: 40px;
-  box-shadow: 0 0 80px rgba(0, 150, 255, 0.15);
-  position: relative; overflow: visible;
-  display: flex; flex-direction: column; align-items: center; z-index: 2;
-}
+    .svg-marco {
+      display: block;
+      width: 350px;
+      height: 350px;
+      overflow: visible;
+    }
 
-.svg-marco { display: block; width: 350px; height: 350px; overflow: visible; }
+    .texto-boda {
+      color: #cce6ff;
+      font-size: 2.8rem;
+      font-family: 'Great Vibes', cursive;
+      letter-spacing: 3px;
+      text-transform: lowercase;
+      text-shadow: 0 0 15px rgba(0, 150, 255, 0.8);
+      text-align: center;
+      width: 100%;
+      margin-top: 20px;
+    }
 
-.texto-boda {
-  color: #cce6ff; font-size: 2.8rem; font-family: 'Great Vibes', cursive;
-  letter-spacing: 3px; text-transform: lowercase;
-  text-shadow: 0 0 15px rgba(0, 150, 255, 0.8);
-  text-align: center; width: 100%; margin-top: 20px;
-}
+    .linea-marco {
+      fill: none;
+      stroke: url(#gradienteLuz);
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: var(--linea) var(--vacio);
+      animation: recorrerMarco 5s linear infinite;
+    }
 
-.linea-marco {
-  fill: none; stroke: url(#gradienteLuz); stroke-width: 5; stroke-linecap: round;
-  stroke-dasharray: var(--linea) var(--vacio);
-  animation: recorrerMarco 5s linear infinite;
-}
-.linea-marco-glow {
-  fill: none; stroke: url(#gradienteLuz); stroke-width: 16; stroke-linecap: round;
-  stroke-dasharray: var(--linea) var(--vacio);
-  filter: blur(10px); opacity: 0.55;
-  animation: recorrerMarco 5s linear infinite;
-}
+    .linea-marco-glow {
+      fill: none;
+      stroke: url(#gradienteLuz);
+      stroke-width: 16;
+      stroke-linecap: round;
+      stroke-dasharray: var(--linea) var(--vacio);
+      filter: blur(10px);
+      opacity: 0.55;
+      animation: recorrerMarco 5s linear infinite;
+    }
 
-@keyframes recorrerMarco {
-  0%   { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -677.08; }
-}
+    @keyframes recorrerMarco {
+      0%   { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: -677.08; }
+    }
 
-.fondo-estrellas { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    /* =========================================================
+       SECCIÓN 2 - MARQUESINA
+    ========================================================= */
+    .seccion-marquesina {
+      width: 100%;
+      height: var(--altura-seccion);
+      min-height: var(--altura-seccion);
+      background: linear-gradient(135deg, #0a1525, #0a1f3a);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 10px;
+      overflow: hidden;
+      position: relative;
+      border-top: 2px solid var(--azul-principal);
+      border-bottom: 2px solid var(--azul-principal);
+    }
 
-.estrellas, .estrellas2, .estrellas3 {
-  position: absolute; width: 200%; height: 200%;
-  background-repeat: repeat; 
-  background-size: 350px 350px; /* más chico = más repetido = más estrellas */
-}
-.estrellas {
-  opacity: .9;
-  background-image: 
-    radial-gradient(1px 1px at 5% 10%, #fff 100%, transparent),
-    radial-gradient(1px 1px at 15% 40%, #fff 100%, transparent),
-    radial-gradient(1.2px 1.2px at 25% 5%, #fff 100%, transparent),
-    radial-gradient(1px 1px at 35% 80%, #fff 100%, transparent),
-    radial-gradient(1.5px 1.5px at 50% 20%, #aaddff 100%, transparent),
-    radial-gradient(1px 1px at 65% 60%, #fff 100%, transparent),
-    radial-gradient(1px 1px at 75% 90%, #fff 100%, transparent),
-    radial-gradient(2px 2px at 85% 15%, #fff 100%, transparent),
-    radial-gradient(1px 1px at 90% 50%, #fff 100%, transparent),
-    radial-gradient(1.2px 1.2px at 10% 75%, #7dd3ff 100%, transparent),
-    radial-gradient(1px 1px at 45% 45%, #fff 100%, transparent),
-    radial-gradient(1px 1px at 20% 90%, #fff 100%, transparent);
-  animation: moverEstrellas 120s linear infinite;
-}
-.estrellas2 {
-  opacity: .4;
-  background-size: 450px 450px;
-  background-image: 
-    radial-gradient(2px 2px at 10% 20%, #fff 100%, transparent),
-    radial-gradient(1.5px 1.5px at 30% 60%, #aaddff 100%, transparent),
-    radial-gradient(2.5px 2.5px at 60% 10%, #fff 100%, transparent),
-    radial-gradient(1px 1px at 80% 70%, #7dd3ff 100%, transparent),
-    radial-gradient(2px 2px at 90% 30%, #fff 100%, transparent);
-  animation: moverEstrellas 180s linear infinite reverse;
-}
-.estrellas3 {
-  opacity: .25;
-  background-size: 600px 600px;
-  background-image: 
-    radial-gradient(1px 1px at 20% 20%, #7dd3ff 100%, transparent),
-    radial-gradient(1px 1px at 60% 80%, #fef 100%, transparent),
-    radial-gradient(2px 2px at 40% 40%, #fff 100%, transparent);
-  animation: moverEstrellas 250s linear infinite;
-}
+    .seccion-marquesina::before,
+    .seccion-marquesina::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 100px;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
 
-@keyframes moverEstrellas {
-  from { transform: translate(0,0); }
-  to { transform: translate(-350px, -350px); }
-}
+    .seccion-marquesina::before { left: 0; background: linear-gradient(to right, #0a1525, transparent); }
+    .seccion-marquesina::after { right: 0; background: linear-gradient(to left, #0a1525, transparent); }
 
-.fugaz {
-  position: absolute; left: -100px; width: 120px; height: 2px;
-  background: linear-gradient(90deg, rgba(0,212,255,0) 0%, #00d4ff 50%, #fff 100%);
-  filter: drop-shadow(0 0 6px #00d4ff); border-radius: 100px;
-  animation: caerFugaz 4s linear infinite; opacity: 0;
-}
-.fugaz::after {
-  content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-  width: 6px; height: 6px; background: #fff; border-radius: 50%;
-  box-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff;
-}
-@keyframes caerFugaz {
-  0% { transform: translateX(0) translateY(0) rotate(25deg); opacity: 0; }
-  10% { opacity: 1; } 80% { opacity: 1; }
-  100% { transform: translateX(120vw) translateY(400px) rotate(25deg); opacity: 0; }
-}
+    .titulo-marquesina {
+      color: #40b0ff;
+      font-size: 2.5rem;
+      font-family: 'Great Vibes', cursive;
+      text-shadow: 0 0 30px rgba(0, 150, 255, 0.4);
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+      position: relative;
+      z-index: 1;
+    }
 
-/* =========================================================
-   SECCIÓN 2 - MARQUESINA
-========================================================= */
-.seccion-marquesina {
-  width: 100%; height: var(--altura-seccion); min-height: var(--altura-seccion);
-  background: linear-gradient(135deg, #0a1525, #0a1f3a);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 30px 10px; overflow: hidden; position: relative;
-  border-top: 2px solid var(--azul-principal); border-bottom: 2px solid var(--azul-principal);
-}
-.seccion-marquesina::before, .seccion-marquesina::after {
-  content: ''; position: absolute; top: 0; width: 100px; height: 100%; z-index: 2; pointer-events: none;
-}
-.seccion-marquesina::before { left: 0; background: linear-gradient(to right, #0a1525, transparent); }
-.seccion-marquesina::after { right: 0; background: linear-gradient(to left, #0a1525, transparent); }
+    .contenedor-marquesina {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
 
-.titulo-marquesina {
-  color: #40b0ff; font-size: 2.5rem; font-family: 'Great Vibes', cursive;
-  text-shadow: 0 0 30px rgba(0, 150, 255, 0.4); margin-bottom: 20px;
-  letter-spacing: 3px; position: relative; z-index: 1;
-}
-.contenedor-marquesina { width: 100%; overflow: hidden; position: relative; z-index: 1; }
-.pista-marquesina {
-  display: flex; gap: 10px; animation: moverMarquesina 20s linear infinite; width: max-content;
-}
-.pista-marquesina figure {
-  display: flex; flex-direction: column; align-items: center; gap: 5px; margin: 0; flex-shrink: 0;
-}
-.imagen-marquesina {
-  height: 400px; width: auto; object-fit: cover; border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 150, 255, 0.3); flex-shrink: 0; transition: transform 0.3s ease;
-}
-.imagen-marquesina:hover { transform: scale(1.05); box-shadow: 0 4px 40px rgba(0, 150, 255, 0.6); }
-.pista-marquesina figcaption {
-  color: #40b0ff; font-size: 12px; opacity: 0.8; text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
-}
-@keyframes moverMarquesina { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .pista-marquesina {
+      display: flex;
+      gap: 10px;
+      animation: moverMarquesina 20s linear infinite;
+      width: max-content;
+    }
 
-/* =========================================================
-   SECCIÓN 2.5 - DATOS DE LA BODA
-========================================================= */
-.seccion-datos {
-  width: 100%; background: #0a0a0f; padding: 80px 20px;
-  display: flex; flex-direction: column; align-items: center; position: relative;
-}
-.titulo-datos {
-  font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #40b0ff;
-  text-shadow: 0 0 30px rgba(0,150,255,.4); margin-bottom: 10px;
-}
-.subtitulo-datos { color: rgba(255,255,255,.5); max-width: 600px; margin-bottom: 50px; line-height: 1.6; text-align: center; }
-.grid-datos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; max-width: 1100px; width: 100%; }
-.card-dato {
-  background: rgba(0,150,255,.05); border: 1px solid rgba(0,150,255,.15);
-  border-radius: 20px; padding: 30px 25px; backdrop-filter: blur(10px);
-}
-.card-dato.destacado {
-  background: linear-gradient(135deg, rgba(0,150,255,.12), rgba(0,212,255,.05));
-  border-color: rgba(0,150,255,.3); transform: scale(1.03);
-}
-.icono-dato { font-size: 2rem; margin-bottom: 15px; text-align: center; }
-.card-dato h3 { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 10px; text-align: center; }
-.dato-principal { color: #40b0ff; font-weight: 600; margin-bottom: 5px; text-align: center; }
-.dato-sec { color: rgba(255,255,255,.6); font-size: .95rem; line-height: 1.5; text-align: center; }
-.bloque-ubicacion { margin: 20px 0; text-align: left; }
-.bloque-ubicacion strong { display: block; color: #fff; margin-bottom: 4px; }
-.bloque-ubicacion span { display: block; color: rgba(255,255,255,.6); font-size: .9rem; }
-.link-mapa { display: inline-block; margin-top: 8px; color: #00d4ff; text-decoration: none; font-size: .85rem; letter-spacing: 1px; }
-.link-mapa:hover { text-decoration: underline; }
-.card-discurso {
-  margin-top: 60px; max-width: 700px; border-left: 3px solid var(--azul-principal);
-  padding: 20px 30px; color: rgba(255,255,255,.7); font-style: italic; line-height: 1.8;
-  font-family: 'Playfair Display', serif; font-size: 1.2rem; text-align: center;
-}
-.card-discurso span { display: block; margin-top: 15px; color: #40b0ff; font-style: normal; font-family: 'Great Vibes', cursive; font-size: 1.8rem; }
+    .pista-marquesina figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      margin: 0;
+      flex-shrink: 0;
+    }
 
-/* =========================================================
-   SECCIÓN 3 - PROGRAMA DE EVENTO
-========================================================= */
-.seccion-programa {
-  width: 100%; background-color: #ffffff; color: #0f141f;
-  padding: 80px 20px; display: flex; flex-direction: column; align-items: center; position: relative;
-}
-.titulo-programa { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #0f141f; margin-bottom: 60px; text-align: center; }
-.lista-programa { max-width: 600px; width: 100%; position: relative; padding-left: 40px; }
-.lista-programa::before {
-  content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 2px;
-  background: linear-gradient(to bottom, transparent, var(--azul-principal), transparent);
-}
-.item-programa { position: relative; margin-bottom: 50px; text-align: left; }
-.item-programa:last-child { margin-bottom: 0; }
-.item-programa::before {
-  content: ''; position: absolute; left: -45px; top: 8px; width: 12px; height: 12px;
-  background-color: #ffffff; border: 3px solid var(--azul-principal); border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
-}
-.hora-programa { display: block; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--azul-principal); margin-bottom: 5px; letter-spacing: 1px; }
-.nombre-evento { display: block; font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 600; color: #0f141f; margin-bottom: 5px; }
-.detalle-evento { display: block; font-family: 'Segoe UI', Arial, sans-serif; font-size: 1rem; color: #666; font-style: italic; }
+    .imagen-marquesina {
+      height: 400px;
+      width: auto;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 150, 255, 0.3);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
 
-/* =========================================================
-   SECCIÓN 4 - CUENTA REGRESIVA
-========================================================= */
-.seccion-contador {
-  width: 100vw; height: var(--altura-seccion); min-height: var(--altura-seccion);
-  display: flex; justify-content: center; align-items: center;
-  background: radial-gradient(ellipse at center, #0a1930, #050508); position: relative; overflow: hidden;
-}
-.seccion-contador::before {
-  content: ''; position: absolute; width: 200%; height: 200%;
-  background: radial-gradient(circle at 30% 50%, rgba(0, 120, 255, 0.08), transparent 50%),
-              radial-gradient(circle at 70% 80%, rgba(0, 200, 255, 0.08), transparent 50%);
-  animation: fondoContador 20s ease-in-out infinite;
-}
-@keyframes fondoContador {
-  0%, 100% { transform: translate(-10%, -10%) rotate(0deg); }
-  50%      { transform: translate(10%, 10%) rotate(5deg); }
-}
-.contenedor-contador { position: relative; z-index: 1; text-align: center; padding: 40px; max-width: 900px; width: 100%; }
-.titulo-contador { color: rgba(255, 255, 255, 0.6); font-size: 1.2rem; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 10px; }
-.fecha-objetivo {
-  color: #fff; font-size: 2.5rem; font-weight: 700; margin-bottom: 50px;
-  background: linear-gradient(135deg, #00d4ff, #0096ff, #60a5fa);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.caja-contador { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-.unidad-tiempo {
-  background: rgba(0, 150, 255, 0.05); backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 150, 255, 0.1); border-radius: 20px; padding: 30px 25px;
-  min-width: 120px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); transition: transform 0.3s ease;
-}
-.unidad-tiempo:hover { transform: translateY(-5px); border-color: rgba(0, 150, 255, 0.3); }
-.numero {
-  display: block; font-size: 4rem; font-weight: 700;
-  background: linear-gradient(135deg, #00d4ff, #0096ff);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;
-}
-.etiqueta { display: block; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; }
-.mensaje-contador { color: rgba(255, 255, 255, 0.4); font-size: 1.1rem; margin-top: 40px; letter-spacing: 2px; font-style: italic; }
+    .imagen-marquesina:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 40px rgba(0, 150, 255, 0.6);
+    }
 
-/* =========================================================
-   SECCIÓN 5 - REPRODUCTOR (FONDO FIJO)
-========================================================= */
-.seccion-reproductor {
-  width: 100vw; min-height: 20vh; position: relative;
-  display: flex; justify-content: center; align-items: center; user-select: none;
-  background: url('https://picsum.photos/1920/1080?random=20') no-repeat center center fixed; background-size: cover;
-}
-.overlay-fondo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 15, 0.75); backdrop-filter: blur(6px); z-index: 1; }
-.controles-minimalistas {
-  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 9999;
-  display: flex; gap: 12px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(15px);
-  padding: 14px 24px; border-radius: 50px; border: 1px solid rgba(0, 150, 255, 0.3);
-  transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-.controles-minimalistas:hover { background: rgba(0, 0, 0, 0.7); border-color: rgba(0, 150, 255, 0.6); transform: translateX(-50%) translateY(-3px); }
-.btn-control { background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
-.btn-control:hover { background: rgba(0, 150, 255, 0.2); transform: scale(1.15); }
-.btn-control .icono { width: 28px; height: 28px; fill: white; }
-.btn-control .icono.oculto { display: none; }
+    .pista-marquesina figcaption {
+      color: #40b0ff;
+      font-size: 12px;
+      opacity: 0.8;
+      text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+    }
 
-/* =========================================================
-   SECCIÓN 6 - RSVP / CONFIRMAR ASISTENCIA
-========================================================= */
-.seccion-rsvp {
-  width: 100%; background: #0a0a0f; padding: 80px 20px;
-  display: flex; flex-direction: column; align-items: center; border-top: 2px solid var(--azul-principal);
-}
-.titulo-rsvp { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #40b0ff; text-shadow: 0 0 30px rgba(0,150,255,.4); margin-bottom: 30px; text-align: center; }
+    @keyframes moverMarquesina {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
 
-.mensaje-bienvenida, #mensajeBienvenida {
-  text-align: center; padding: 15px 20px; margin-bottom: 20px;
-  background-color: rgba(0, 255, 255, 0.1); border: 1px solid #00ffff;
-  border-radius: 8px; color: #00ffff; max-width: 600px; width: 100%;
-}
-.info-invitado-box, #infoInvitadoBox {
-  padding: 15px; margin-bottom: 20px; background-color: rgba(255, 255, 255, 0.05);
-  border-left: 4px solid #00ffff; border-radius: 4px; color: #cce6ff;
-  text-align: center; width: 100%; max-width: 600px;
-}
-.info-invitado-box p { margin: 8px 0; font-size: 1.1em; }
-.info-invitado-box strong { color: #40b0ff; }
+    /* =========================================================
+       SECCIÓN 3 - PROGRAMA DE EVENTO (NUEVA)
+    ========================================================= */
+    .seccion-programa {
+      width: 100%;
+      background-color: #ffffff;
+      color: #0f141f;
+      padding: 80px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
 
-.form-rsvp { max-width: 500px; width: 100%; display: flex; flex-direction: column; gap: 15px; }
-.form-rsvp.hidden { display: none; }
-.form-rsvp select, .form-rsvp input, .form-rsvp textarea {
-  padding: 15px 20px; border-radius: 12px; border: 1px solid rgba(0, 150, 255, 0.2);
-  background: rgba(0, 0, 0, 0.3); color: #fff; font-size: 1rem; outline: none;
-  transition: all 0.3s ease; font-family: 'Segoe UI', Arial, sans-serif;
-}
-.form-rsvp select option { background: #0a0a0f; }
-.form-rsvp select:focus, .form-rsvp input:focus, .form-rsvp textarea:focus {
-  border-color: var(--azul-principal); box-shadow: 0 0 20px rgba(0, 150, 255, 0.1);
-}
-.form-rsvp input::placeholder, .form-rsvp textarea::placeholder { color: rgba(255, 255, 255, 0.3); }
-.form-rsvp textarea { height: 80px; resize: vertical; }
+    .titulo-programa {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: #0f141f;
+      margin-bottom: 60px;
+      text-align: center;
+    }
 
-.btn-enviar-rsvp {
-  padding: 16px; border-radius: 30px; border: none;
-  background: linear-gradient(135deg, var(--azul-principal), var(--azul-brillante));
-  color: #fff; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease;
-}
-.btn-enviar-rsvp:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 150, 255, 0.3); }
-.btn-enviar-rsvp:disabled { opacity: 0.6; cursor: not-allowed; }
+    .lista-programa {
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      padding-left: 40px;
+    }
 
-.status-rsvp { text-align: center; color: var(--azul-principal); font-size: 0.95rem; margin-top: 10px; min-height: 25px; }
+    /* Línea vertical elegante */
+    .lista-programa::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--azul-principal), transparent);
+    }
 
-.sin-codigo { color: rgba(255, 255, 255, 0.4); text-align: center; max-width: 500px; margin-top: 30px; line-height: 1.8; padding: 15px; font-size: 0.9em; }
-.sin-codigo small { display: block; color: rgba(255, 255, 255, 0.25); font-size: 0.75rem; margin-top: 10px; }
+    .item-programa {
+      position: relative;
+      margin-bottom: 50px;
+      text-align: left;
+    }
 
-.oculto { display: none !important; }
+    .item-programa:last-child {
+      margin-bottom: 0;
+    }
 
-/* =========================================================
-   MÓVIL (MEDIA QUERIES)
-========================================================= */
-@media (max-width: 768px) {
-  :root { --altura-seccion: 400px; }
-  .seccion-completa { min-height: 500px; }
-  .svg-marco { width: 280px; height: 280px; }
-  .marco-contenedor { padding: 30px; }
-  .texto-boda { font-size: 2.2rem; }
-  .imagen-marquesina { height: 280px; }
-  .titulo-marquesina { font-size: 2rem; }
-  .grid-datos { grid-template-columns: 1fr; }
-  .card-dato.destacado { transform: scale(1); }
-  .titulo-programa { font-size: 2.8rem; margin-bottom: 40px; }
-  .nombre-evento { font-size: 1.4rem; }
-  .fecha-objetivo { font-size: 1.8rem; margin-bottom: 30px; }
-  .contenedor-contador { padding: 20px; }
-  .caja-contador { gap: 15px; }
-  .unidad-tiempo { padding: 20px 15px; min-width: 80px; }
-  .numero { font-size: 2.8rem; }
-  .etiqueta { font-size: 0.65rem; letter-spacing: 1px; }
-  .mensaje-contador { margin-top: 25px; font-size: 0.9rem; }
-  .controles-minimalistas { bottom: 20px; padding: 12px 20px; }
-  .titulo-rsvp { font-size: 2.8rem; }
-}
+    /* Punto en la línea de tiempo */
+    .item-programa::before {
+      content: '';
+      position: absolute;
+      left: -45px;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      background-color: #ffffff;
+      border: 3px solid var(--azul-principal);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+    }
+
+    .hora-programa {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--azul-principal);
+      margin-bottom: 5px;
+      letter-spacing: 1px;
+    }
+
+    .nombre-evento {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #0f141f;
+      margin-bottom: 5px;
+    }
+
+    .detalle-evento {
+      display: block;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 1rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* =========================================================
+       SECCIÓN 4 - CUENTA REGRESIVA
+    ========================================================= */
+    .seccion-contador {
+      width: 100vw;
+      height: var(--altura-seccion);
+      min-height: var(--altura-seccion);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(ellipse at center, #0a1930, #050508);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .seccion-contador::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(circle at 30% 50%, rgba(0, 120, 255, 0.08), transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(0, 200, 255, 0.08), transparent 50%);
+      animation: fondoContador 20s ease-in-out infinite;
+    }
+
+    @keyframes fondoContador {
+      0%, 100% { transform: translate(-10%, -10%) rotate(0deg); }
+      50%      { transform: translate(10%, 10%) rotate(5deg); }
+    }
+
+    .contenedor-contador {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .titulo-contador {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .fecha-objetivo {
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, #00d4ff, #0096ff, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .caja-contador {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .unidad-tiempo {
+      background: rgba(0, 150, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 150, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px 25px;
+      min-width: 120px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .unidad-tiempo:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 150, 255, 0.3);
+    }
+
+    .numero {
+      display: block;
+      font-size: 4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #00d4ff, #0096ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .etiqueta {
+      display: block;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 10px;
+    }
+
+    .mensaje-contador {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 1.1rem;
+      margin-top: 40px;
+      letter-spacing: 2px;
+      font-style: italic;
+    }
+
+    /* =========================================================
+       SECCIÓN 5 - REPRODUCTOR (FONDO FIJO)
+    ========================================================= */
+    .seccion-reproductor {
+      width: 100vw;
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      
+      /* FONDO FIJO AL HACER SCROLL */
+      background: url('https://picsum.photos/1920/1080?random=20') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay-fondo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 15, 0.75); /* Oscurece la imagen fija para que resalte el texto/control */
+      backdrop-filter: blur(6px);
+      z-index: 1;
+    }
+
+    /* CONTROLES FIJOS EN EL CENTRO INFERIOR DE LA PANTALLA */
+    .controles-minimalistas {
+      position: fixed; /* Se mantiene fijo al hacer scroll */
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999; /* Por encima de absolutamente todo */
+      display: flex;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(15px);
+      padding: 14px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(0, 150, 255, 0.3);
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .controles-minimalistas:hover {
+      background: rgba(0, 0, 0, 0.7);
+      border-color: rgba(0, 150, 255, 0.6);
+      transform: translateX(-50%) translateY(-3px);
+    }
+
+    .btn-control {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-control:hover {
+      background: rgba(0, 150, 255, 0.2);
+      transform: scale(1.15);
+    }
+
+    .btn-control .icono {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+
+    .btn-control .icono.oculto {
+      display: none;
+    }
+
+    /* =========================================================
+       MÓVIL
+    ========================================================= */
+    @media (max-width: 768px) {
+      :root {
+        --altura-seccion: 400px;
+      }
+
+      .seccion-completa { min-height: 500px; }
+      .svg-marco { width: 280px; height: 280px; }
+      .marco-contenedor { padding: 30px; }
+      .texto-boda { font-size: 2.2rem; }
+      .imagen-marquesina { height: 280px; }
+      .titulo-marquesina { font-size: 2rem; }
+      
+      .titulo-programa { font-size: 2.8rem; margin-bottom: 40px; }
+      .nombre-evento { font-size: 1.4rem; }
+      
+      .fecha-objetivo { font-size: 1.8rem; margin-bottom: 30px; }
+      .contenedor-contador { padding: 20px; }
+      .caja-contador { gap: 15px; }
+      .unidad-tiempo { padding: 20px 15px; min-width: 80px; }
+      .numero { font-size: 2.8rem; }
+      .etiqueta { font-size: 0.65rem; letter-spacing: 1px; }
+      .mensaje-contador { margin-top: 25px; font-size: 0.9rem; }
+
+      .controles-minimalistas {
+        bottom: 20px;
+        padding: 12px 20px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- SECCIÓN 1: MARCO CON LLUVIA DE ESTRELLAS FUGACES -->
+  <!-- =========================================================
+       SECCIÓN 1: MARCO
+  ========================================================== -->
   <section class="seccion-completa">
-    <div class="fondo-estrellas">
-      <div class="estrellas"></div>
-      <div class="estrellas2"></div>
-      <div class="estrellas3"></div>
-      <div class="fugaz"></div>
-      <div class="fugaz" style="top:20%; animation-delay: 1.5s; animation-duration: 3s;"></div>
-      <div class="fugaz" style="top:40%; animation-delay: 0.8s; animation-duration: 4.5s;"></div>
-      <div class="fugaz" style="top:60%; animation-delay: 2.5s;"></div>
-      <div class="fugaz" style="top:80%; animation-delay: 3.5s; animation-duration: 3.2s;"></div>
-    </div>
-
     <div class="marco-contenedor">
       <svg class="svg-marco" viewBox="0 0 200 200">
   <defs>
@@ -447,7 +564,9 @@ body {
     </div>
   </section>
 
-  <!-- SECCIÓN 2: MARQUESINA -->
+  <!-- =========================================================
+       SECCIÓN 2: MARQUESINA
+  ========================================================== -->
   <section class="seccion-marquesina">
     <h2 class="titulo-marquesina">✨ Nuestros recuerdos ✨</h2>
     <div class="contenedor-marquesina">
@@ -455,373 +574,256 @@ body {
     </div>
   </section>
 
-  <!-- SECCIÓN 2.5 - DATOS DE LA BODA -->
-  <section class="seccion-datos">
-    <h2 class="titulo-datos">Acompáñanos</h2>
-    <p class="subtitulo-datos">Dos almas, un mismo corazón. Queremos que seas parte de este día.</p>
-
-    <div class="grid-datos">
-      <div class="card-dato">
-        <div class="icono-dato">📅</div>
-        <h3>¿Cuándo?</h3>
-        <p id="detalle-fecha">Sábado 12 de Diciembre 2026</p>
-        <p id="detalle-hora-ceremonia">4:00 PM - Discurso</p>
+  <!-- =========================================================
+       SECCIÓN 3: PROGRAMA DE EVENTO (NUEVA)
+  ========================================================== -->
+  <section class="seccion-programa">
+    <h2 class="titulo-programa">Programa de Evento</h2>
+    
+    <div class="lista-programa">
+      <div class="item-programa">
+        <span class="hora-programa">4:00 PM</span>
+        <span class="nombre-evento">Ceremonia Religiosa</span>
+        <span class="detalle-evento">Iglesia San Francisco, Centro Histórico</span>
       </div>
-
-      <div class="card-dato destacado">
-        <div class="icono-dato">📍</div>
-        <h3>Ubicaciones</h3>
-        <div class="bloque-ubicacion">
-          <strong>Discurso de boda</strong>
-          <span>Salón del Reino de los Testigos de Jehová</span>
-          <a href="https://maps.google.com/?q=Salon+del+Reino+Puebla" target="_blank" class="link-mapa">Ver en Mapa →</a>
-        </div>
-        <div class="bloque-ubicacion">
-          <strong>Recepción</strong>
-          <span>Jardín Las Bugambilias<br>Terraza Principal</span>
-          <a href="https://maps.google.com/?q=Jardin+Las+Bugambilias+Puebla" target="_blank" class="link-mapa">Ver en Mapa →</a>
-        </div>
+      
+      <div class="item-programa">
+        <span class="hora-programa">6:00 PM</span>
+        <span class="nombre-evento">Recepción y Cóctel</span>
+        <span class="detalle-evento">Jardín Las Bugambilias, Terraza Principal</span>
       </div>
-
-      <div class="card-dato">
-        <div class="icono-dato">👗</div>
-        <h3>Código de Vestimenta</h3>
-        <p class="dato-principal">Formal - Jardín</p>
-        <p class="dato-sec">Tonos claros, evita el blanco.<br>El evento es al aire libre.</p>
+      
+      <div class="item-programa">
+        <span class="hora-programa">8:00 PM</span>
+        <span class="nombre-evento">Cena y Brindis</span>
+        <span class="detalle-evento">Salón Imperial, Mesa de Honor</span>
       </div>
-    </div>
-
-    <div class="card-discurso">
-      <p>"Desde el primer momento supimos que esto era para siempre.<br>Hoy queremos sellar nuestro amor frente a Dios y frente a ustedes."</p>
-      <span>— Héctor & Rosalinda —</span>
+      
+      <div class="item-programa">
+        <span class="hora-programa">10:00 PM</span>
+        <span class="nombre-evento">¡A Bailar!</span>
+        <span class="detalle-evento">Pista de baile, DJ en vivo hasta el amanecer</span>
+      </div>
     </div>
   </section>
 
-  <!-- SECCIÓN 3: PROGRAMA DE EVENTO -->
-  <div class="seccion-programa">
-    <h2 class="titulo-programa">Programa de Evento</h2>
-    <div class="lista-programa">
-        <div class="item-programa">
-            <span class="hora-programa" id="prog-ceremonia">4:00 PM</span>
-            <span class="nombre-evento">Discurso de boda</span>
-            <span class="detalle-evento">Salón del Reino de los Testigos de Jehová</span>
-        </div>
-        <div class="item-programa">
-            <span class="hora-programa" id="prog-recepcion">6:00 PM</span>
-            <span class="nombre-evento">Recepción y Cóctel</span>
-            <span class="detalle-evento">Jardín Las Bugambilias, Terraza Principal</span>
-        </div>
-        <div class="item-programa">
-            <span class="hora-programa" id="prog-cena">8:00 PM</span>
-            <span class="nombre-evento">Cena y Brindis</span>
-            <span class="detalle-evento">Salón Imperial, Mesa de Honor</span>
-        </div>
-        <div class="item-programa">
-            <span class="hora-programa" id="prog-fiesta">10:00 PM</span>
-            <span class="nombre-evento">¡A Bailar!</span>
-            <span class="detalle-evento">Pista de baile, DJ en vivo hasta el amanecer</span>
-        </div>
-    </div>
-  </div>
-
-  <!-- SECCIÓN 4: CUENTA REGRESIVA -->    
+  <!-- =========================================================
+       SECCIÓN 4: CUENTA REGRESIVA
+  ========================================================== -->
   <section class="seccion-contador">
     <div class="contenedor-contador">
       <h2 class="titulo-contador">Faltan para el</h2>
-      <h1 class="fecha-objetivo" id="titulo-fecha-contador">12 de Diciembre de 2026</h1>
+      <h1 class="fecha-objetivo">12 de Diciembre de 2026</h1>
       <div class="caja-contador">
-        <div class="unidad-tiempo"><span class="numero" id="dias">00</span><span class="etiqueta">Días</span></div>
-        <div class="unidad-tiempo"><span class="numero" id="horas">00</span><span class="etiqueta">Horas</span></div>
-        <div class="unidad-tiempo"><span class="numero" id="minutos">00</span><span class="etiqueta">Minutos</span></div>
-        <div class="unidad-tiempo"><span class="numero" id="segundos">00</span><span class="etiqueta">Segundos</span></div>
+        <div class="unidad-tiempo">
+          <span class="numero" id="dias">00</span>
+          <span class="etiqueta">Días</span>
+        </div>
+        <div class="unidad-tiempo">
+          <span class="numero" id="horas">00</span>
+          <span class="etiqueta">Horas</span>
+        </div>
+        <div class="unidad-tiempo">
+          <span class="numero" id="minutos">00</span>
+          <span class="etiqueta">Minutos</span>
+        </div>
+        <div class="unidad-tiempo">
+          <span class="numero" id="segundos">00</span>
+          <span class="etiqueta">Segundos</span>
+        </div>
       </div>
       <p class="mensaje-contador" id="mensajeContador">¡Prepara la celebración!</p>
     </div>
   </section>
 
-  <!-- SECCIÓN 5: REPRODUCTOR -->
+  <!-- =========================================================
+       SECCIÓN 5: REPRODUCTOR (FONDO FIJO + CONTROLES CENTRALES)
+  ========================================================== -->
   <section class="seccion-reproductor">
     <div class="overlay-fondo"></div>
+    
+    <!-- Controles fijos en el centro inferior de la pantalla -->
     <div class="controles-minimalistas">
       <button class="btn-control" id="btnPlayPause" title="Reproducir / Pausar">
-        <svg class="icono" viewBox="0 0 24 24" id="iconoPlay"><polygon points="5,3 19,12 5,21" fill="white" /></svg>
-        <svg class="icono oculto" viewBox="0 0 24 24" id="iconoPause"><rect x="6" y="4" width="4" height="16" fill="white" /><rect x="14" y="4" width="4" height="16" fill="white" /></svg>
+        <svg class="icono" viewBox="0 0 24 24" id="iconoPlay">
+          <polygon points="5,3 19,12 5,21" fill="white" />
+        </svg>
+        <svg class="icono oculto" viewBox="0 0 24 24" id="iconoPause">
+          <rect x="6" y="4" width="4" height="16" fill="white" />
+          <rect x="14" y="4" width="4" height="16" fill="white" />
+        </svg>
       </button>
+      
       <button class="btn-control" id="btnMute" title="Silenciar / Activar sonido">
-        <svg class="icono" viewBox="0 0 24 24" id="iconoVolumen"><path d="M3,10V14H7L12,19V5L7,10H3Z" fill="white" /><path d="M16.5,12C16.5,10.23 15.48,8.71 14,7.97V16.03C15.48,15.29 16.5,13.77 16.5,12Z" fill="white" /><path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23Z" fill="white" /></svg>
-        <svg class="icono oculto" viewBox="0 0 24 24" id="iconoMute"><path d="M3,10V14H7L12,19V5L7,10H3Z" fill="white" /><line x1="19" y1="5" x2="13" y2="11" stroke="white" stroke-width="2" /><line x1="13" y1="5" x2="19" y2="11" stroke="white" stroke-width="2" /></svg>
+        <svg class="icono" viewBox="0 0 24 24" id="iconoVolumen">
+          <path d="M3,10V14H7L12,19V5L7,10H3Z" fill="white" />
+          <path d="M16.5,12C16.5,10.23 15.48,8.71 14,7.97V16.03C15.48,15.29 16.5,13.77 16.5,12Z" fill="white" />
+          <path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23Z" fill="white" />
+        </svg>
+        <svg class="icono oculto" viewBox="0 0 24 24" id="iconoMute">
+          <path d="M3,10V14H7L12,19V5L7,10H3Z" fill="white" />
+          <line x1="19" y1="5" x2="13" y2="11" stroke="white" stroke-width="2" />
+          <line x1="13" y1="5" x2="19" y2="11" stroke="white" stroke-width="2" />
+        </svg>
       </button>
     </div>
+
     <audio id="reproductorAudio" preload="auto" autoplay loop>
-      <source src="https://cdn.aceimg.com/PzaolJN08.mp3" type="audio/mpeg">
+      <source src="https://files.catbox.moe/neoat4.mp3" type="audio/mpeg">
     </audio>
   </section>
 
-  <!-- SECCIÓN 6: RSVP / CONFIRMAR ASISTENCIA -->
-  <section class="seccion-rsvp">
-    <h2 class="titulo-rsvp">Confirma tu asistencia</h2>
-    
-    <div id="mensajeBienvenida" class="mensaje-bienvenida oculto"></div>
-
-    <div id="infoInvitadoBox" class="info-invitado-box oculto">
-        <p><strong>Invitado:</strong> <span id="nombreInvitado"></span></p>
-        <p><strong>Pases asignados:</strong> <span id="numeroPersonas"></span></p>
-    </div>
-
-    <input type="hidden" id="nombreCompleto">
-    <input type="hidden" id="cantidadPersonas">
-
-    <form class="form-rsvp" id="formRSVP">
-        <select id="asistencia" required>
-            <option value="" disabled selected>Selecciona una opción</option>
-            <option value="SI">🎉 ¡Sí, ahí estaré!</option>
-            <option value="NO">😢 No podré asistir</option>
-        </select>
-      
-        <input type="number" id="confirmados" min="1" placeholder="¿Cuántos pases usarás?" required />
-
-        <textarea id="mensaje" placeholder="Mensaje para los Novios (opcional)"></textarea>
-      
-        <button type="submit" class="btn-enviar-rsvp" id="btnEnviarRSVP">Enviar Confirmación</button>
-        <div class="status-rsvp" id="statusRSVP"></div>
-    </form>
-
-    <div class="sin-codigo" id="sinCodigo">
-        ¿No tienes tu enlace personalizado?
-        <br>Pide tu invitación a Héctor y Rosalinda.
-        <small>Ejemplo: .../?inv=Tu+Nombre&p=2</small>
-    </div>
-  </section>
-
   <!-- =========================================================
-       JAVASCRIPT UNIFICADO Y CORREGIDO
+       JAVASCRIPT
   ========================================================== -->
   <script>
-    /* 1. CONFIGURACIÓN CENTRAL DE FECHAS */
-    const CONFIG_BODA = {
-        fechaObjetivo: new Date('2026-12-15T16:00:00'),
-        textoFechaCompleta: "Martes 15 de Diciembre 2026",
-        horaCeremonia: "4:00 PM",
-        horaRecepcion: "6:00 PM",
-        horaCena: "8:00 PM",
-        horaFiesta: "10:00 PM"
-    };
-
-    /* 2. FUNCIONES DE UTILIDAD */
-    function sincronizarFechasEnPantalla() {
-        const elFecha = document.getElementById('detalle-fecha');
-        if (elFecha) elFecha.textContent = CONFIG_BODA.textoFechaCompleta;
-
-        const elHora = document.getElementById('detalle-hora-ceremonia');
-        if (elHora) elHora.textContent = CONFIG_BODA.horaCeremonia + " - Discurso";
-
-        const elProgCer = document.getElementById('prog-ceremonia');
-        if (elProgCer) elProgCer.textContent = CONFIG_BODA.horaCeremonia;
-
-        const elProgRec = document.getElementById('prog-recepcion');
-        if (elProgRec) elProgRec.textContent = CONFIG_BODA.horaRecepcion;
-
-        const elProgCen = document.getElementById('prog-cena');
-        if (elProgCen) elProgCen.textContent = CONFIG_BODA.horaCena;
-
-        const elProgFie = document.getElementById('prog-fiesta');
-        if (elProgFie) elProgFie.textContent = CONFIG_BODA.horaFiesta;
-
-        const elTituloContador = document.getElementById('titulo-fecha-contador');
-        if (elTituloContador) {
-            const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
-            elTituloContador.textContent = CONFIG_BODA.fechaObjetivo.toLocaleDateString('es-ES', opciones);
-        }
-    }
-
-    function iniciarContador() {
-        const fechaObjetivo = CONFIG_BODA.fechaObjetivo.getTime();
-        function actualizar() {
-            const diferencia = fechaObjetivo - Date.now();
-            const dEl = document.getElementById('dias');
-            const hEl = document.getElementById('horas');
-            const mEl = document.getElementById('minutos');
-            const sEl = document.getElementById('segundos');
-
-            if (diferencia <= 0) {
-                if(dEl) dEl.textContent = '00'; if(hEl) hEl.textContent = '00';
-                if(mEl) mEl.textContent = '00'; if(sEl) sEl.textContent = '00';
-                return;
-            }
-            const d = Math.floor(diferencia / 86400000);
-            const h = Math.floor((diferencia % 86400000) / 3600000);
-            const m = Math.floor((diferencia % 3600000) / 60000);
-            const s = Math.floor((diferencia % 60000) / 1000);
-            
-            if(dEl) dEl.textContent = String(d).padStart(2, '0');
-            if(hEl) hEl.textContent = String(h).padStart(2, '0');
-            if(mEl) mEl.textContent = String(m).padStart(2, '0');
-            if(sEl) sEl.textContent = String(s).padStart(2, '0');
-        }
-        actualizar();
-        setInterval(actualizar, 1000);
-    }
+    /* =========================================================
+       MARQUESINA
+    ========================================================== */
+    const imagenesMarquesina = [
+      { url: 'https://picsum.photos/300/400?random=1', alt: 'Imagen 1', titulo: 'Paisaje 1' },
+      { url: 'https://picsum.photos/500/400?random=2', alt: 'Imagen 2', titulo: 'Paisaje 2' },
+      { url: 'https://picsum.photos/200/400?random=3', alt: 'Imagen 3', titulo: 'Paisaje 3' },
+      { url: 'https://picsum.photos/600/400?random=4', alt: 'Imagen 4', titulo: 'Paisaje 4' },
+      { url: 'https://picsum.photos/350/400?random=5', alt: 'Imagen 5', titulo: 'Paisaje 5' },
+      { url: 'https://picsum.photos/450/400?random=6', alt: 'Imagen 6', titulo: 'Paisaje 6' }
+    ];
 
     function crearMarquesina() {
-        const imagenes = [
-            { url: 'https://picsum.photos/300/400?random=1', alt: 'Img 1', titulo: 'Recuerdo 1' },
-            { url: 'https://picsum.photos/500/400?random=2', alt: 'Img 2', titulo: 'Recuerdo 2' },
-            { url: 'https://picsum.photos/200/400?random=3', alt: 'Img 3', titulo: 'Recuerdo 3' },
-            { url: 'https://picsum.photos/600/400?random=4', alt: 'Img 4', titulo: 'Recuerdo 4' },
-            { url: 'https://picsum.photos/350/400?random=5', alt: 'Img 5', titulo: 'Recuerdo 5' },
-            { url: 'https://picsum.photos/450/400?random=6', alt: 'Img 6', titulo: 'Recuerdo 6' }
-        ];
-        const pista = document.getElementById('pistaMarquesina');
-        if (!pista) return;
-        pista.innerHTML = '';
-        const dup = [...imagenes, ...imagenes];
-        dup.forEach(img => {
-            const figure = document.createElement('figure');
-            const imagen = document.createElement('img');
-            imagen.src = img.url; imagen.alt = img.alt; imagen.className = 'imagen-marquesina'; imagen.loading = 'lazy';
-            const caption = document.createElement('figcaption');
-            caption.textContent = img.titulo;
-            figure.appendChild(imagen); figure.appendChild(caption);
-            pista.appendChild(figure);
-        });
+      const pista = document.getElementById('pistaMarquesina');
+      if (!pista) return;
+      pista.innerHTML = '';
+      const dup = [...imagenesMarquesina, ...imagenesMarquesina];
+      dup.forEach(img => {
+        const figure = document.createElement('figure');
+        const imagen = document.createElement('img');
+        imagen.src = img.url;
+        imagen.alt = img.alt;
+        imagen.className = 'imagen-marquesina';
+        imagen.loading = 'lazy';
+        const caption = document.createElement('figcaption');
+        caption.textContent = img.titulo;
+        figure.appendChild(imagen);
+        figure.appendChild(caption);
+        pista.appendChild(figure);
+      });
     }
 
-    /* 3. CLASE REPRODUCTOR DE MÚSICA */
+    /* =========================================================
+       CUENTA REGRESIVA
+    ========================================================== */
+    function iniciarContador() {
+      const fechaObjetivo = new Date('2026-12-12T00:00:00').getTime();
+      function actualizarContador() {
+        const diferencia = fechaObjetivo - Date.now();
+        if (diferencia <= 0) {
+          document.getElementById('dias').textContent = '00';
+          document.getElementById('horas').textContent = '00';
+          document.getElementById('minutos').textContent = '00';
+          document.getElementById('segundos').textContent = '00';
+          document.getElementById('mensajeContador').textContent = '🎉 ¡Llegó el día! 🎉';
+          return;
+        }
+        const d = Math.floor(diferencia / 86400000);
+        const h = Math.floor((diferencia % 86400000) / 3600000);
+        const m = Math.floor((diferencia % 3600000) / 60000);
+        const s = Math.floor((diferencia % 60000) / 1000);
+        document.getElementById('dias').textContent     = String(d).padStart(2, '0');
+        document.getElementById('horas').textContent    = String(h).padStart(2, '0');
+        document.getElementById('minutos').textContent  = String(m).padStart(2, '0');
+        document.getElementById('segundos').textContent = String(s).padStart(2, '0');
+      }
+      actualizarContador();
+      setInterval(actualizarContador, 1000);
+    }
+
+    /* =========================================================
+       REPRODUCTOR SIMPLIFICADO
+    ========================================================== */
     class ReproductorMusica {
-        constructor() {
-            this.audio = document.getElementById('reproductorAudio');
-            this.btnPlayPause = document.getElementById('btnPlayPause');
-            this.btnMute = document.getElementById('btnMute');
-            this.iconoPlay = document.getElementById('iconoPlay');
-            this.iconoPause = document.getElementById('iconoPause');
-            this.iconoVolumen = document.getElementById('iconoVolumen');
-            this.iconoMute = document.getElementById('iconoMute');
+      constructor() {
+        this.audio             = document.getElementById('reproductorAudio');
+        this.btnPlayPause      = document.getElementById('btnPlayPause');
+        this.btnMute           = document.getElementById('btnMute');
+        this.iconoPlay         = document.getElementById('iconoPlay');
+        this.iconoPause        = document.getElementById('iconoPause');
+        this.iconoVolumen      = document.getElementById('iconoVolumen');
+        this.iconoMute         = document.getElementById('iconoMute');
+        this.estaReproduciendo = false;
+        this.estaSilenciado    = false;
+        
+        this.inicializar();
+      }
+
+      inicializar() {
+        this.configurarEventos();
+        this.reproducirAutomaticamente();
+      }
+
+      configurarEventos() {
+        this.btnPlayPause?.addEventListener('click', () => this.togglePlayPause());
+        this.btnMute?.addEventListener('click', () => this.toggleMute());
+      }
+
+      reproducirAutomaticamente() {
+        if (!this.audio) return;
+        this.audio.play()
+          .then(() => {
+            this.estaReproduciendo = true;
+            this.actualizarIconosPlay();
+          })
+          .catch(() => {
             this.estaReproduciendo = false;
-            this.estaSilenciado = false;
-            this.inicializar();
-        }
-        inicializar() {
-            this.btnPlayPause?.addEventListener('click', () => this.togglePlayPause());
-            this.btnMute?.addEventListener('click', () => this.toggleMute());
-            this.reproducirAutomaticamente();
-        }
-        reproducirAutomaticamente() {
-            if (!this.audio) return;
-            this.audio.play().then(() => { this.estaReproduciendo = true; this.actualizarIconosPlay(); })
-            .catch(() => { this.estaReproduciendo = false; this.actualizarIconosPlay(); });
-        }
-        togglePlayPause() { this.estaReproduciendo ? this.pausar() : this.reproducir(); }
-        reproducir() {
-            if (!this.audio) return;
-            this.audio.play().then(() => { this.estaReproduciendo = true; this.actualizarIconosPlay(); }).catch(() => {});
-        }
-        pausar() {
-            if (!this.audio) return;
-            this.audio.pause(); this.estaReproduciendo = false; this.actualizarIconosPlay();
-        }
-        actualizarIconosPlay() {
-            if(this.iconoPlay) this.iconoPlay.classList.toggle('oculto', this.estaReproduciendo);
-            if(this.iconoPause) this.iconoPause.classList.toggle('oculto', !this.estaReproduciendo);
-        }
-        toggleMute() {
-            this.estaSilenciado = !this.estaSilenciado;
-            this.audio.muted = this.estaSilenciado;
-            if(this.iconoVolumen) this.iconoVolumen.classList.toggle('oculto', this.estaSilenciado);
-            if(this.iconoMute) this.iconoMute.classList.toggle('oculto', !this.estaSilenciado);
-        }
+            this.actualizarIconosPlay();
+          });
+      }
+
+      togglePlayPause() {
+        this.estaReproduciendo ? this.pausar() : this.reproducir();
+      }
+
+      reproducir() {
+        if (!this.audio) return;
+        this.audio.play().then(() => {
+          this.estaReproduciendo = true;
+          this.actualizarIconosPlay();
+        }).catch(() => {});
+      }
+
+      pausar() {
+        if (!this.audio) return;
+        this.audio.pause();
+        this.estaReproduciendo = false;
+        this.actualizarIconosPlay();
+      }
+
+      actualizarIconosPlay() {
+        this.iconoPlay.classList.toggle('oculto', this.estaReproduciendo);
+        this.iconoPause.classList.toggle('oculto', !this.estaReproduciendo);
+      }
+
+      toggleMute() {
+        this.estaSilenciado = !this.estaSilenciado;
+        this.audio.muted = this.estaSilenciado;
+        this.iconoVolumen.classList.toggle('oculto', this.estaSilenciado);
+        this.iconoMute.classList.toggle('oculto', !this.estaSilenciado);
+      }
     }
 
-    /* 4. INICIALIZACIÓN GLOBAL (UN SOLO BLOQUE PARA EVITAR CONFLICTOS) */
+    /* =========================================================
+       INICIALIZACIÓN GLOBAL
+    ========================================================== */
     document.addEventListener('DOMContentLoaded', () => {
-        sincronizarFechasEnPantalla();
-        crearMarquesina();
-        iniciarContador();
-        const rep = new ReproductorMusica();
-
-        document.addEventListener('click', () => {
-            if (rep.audio && !rep.estaReproduciendo) rep.reproducir();
-        }, { once: true });
-
-        // --- LÓGICA RSVP ---
-        const urlParams = new URLSearchParams(window.location.search);
-        const invitadoUrl = urlParams.get('inv');
-        const personasUrl = urlParams.get('p');
-
-        const mensajeBienvenida = document.getElementById('mensajeBienvenida');
-        const infoInvitadoBox = document.getElementById('infoInvitadoBox');
-        const nombreInvitadoSpan = document.getElementById('nombreInvitado');
-        const numeroPersonasSpan = document.getElementById('numeroPersonas');
-        const inputNombre = document.getElementById('nombreCompleto');
-        const inputCantidad = document.getElementById('cantidadPersonas');
-        const inputConfirmados = document.getElementById('confirmados');
-        const formRSVP = document.getElementById('formRSVP');
-        const sinCodigo = document.getElementById('sinCodigo');
-        const statusRSVP = document.getElementById('statusRSVP');
-
-        if (invitadoUrl && personasUrl) {
-            const nombreLimpio = decodeURIComponent(invitadoUrl.replace(/\+/g, ' '));
-            const cantidadPases = parseInt(personasUrl, 10);
-
-            if (mensajeBienvenida) {
-                mensajeBienvenida.innerHTML = `<h3>¡Hola, ${nombreLimpio}!</h3>`;
-                mensajeBienvenida.classList.remove('oculto');
-            }
-            if (nombreInvitadoSpan) nombreInvitadoSpan.textContent = nombreLimpio;
-            if (numeroPersonasSpan) numeroPersonasSpan.textContent = cantidadPases;
-            if (infoInvitadoBox) infoInvitadoBox.classList.remove('oculto');
-
-            if (inputNombre) inputNombre.value = nombreLimpio;
-            if (inputCantidad) inputCantidad.value = cantidadPases;
-            if (inputConfirmados) inputConfirmados.value = cantidadPases;
-
-            if (sinCodigo) sinCodigo.classList.add('oculto');
-            } else {
-    document.querySelector('.seccion-rsvp')?.remove();
-}
+      crearMarquesina();
+      iniciarContador();
+      const rep = new ReproductorMusica();
+      
+      // Fallback: el primer clic en cualquier parte de la página inicia la música
+      document.addEventListener('click', () => {
+        if (rep.audio && !rep.estaReproduciendo) {
+          rep.reproducir();
         }
-
-        if (formRSVP) {
-            formRSVP.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const asistencia = document.getElementById('asistencia').value;
-                const confirmados = parseInt(document.getElementById('confirmados').value) || 0;
-                const maxPases = parseInt(inputCantidad?.value) || 99;
-                
-                // CORRECCIÓN CLAVE: Usar '?.' para que no falle si el campo teléfono no existe
-                const telefonoEl = document.getElementById('telefono');
-                const telefono = telefonoEl ? telefonoEl.value : '';
-                
-  const mensajeTexto = document.getElementById('mensaje').value;
-const nombreFinal = inputNombre?.value || "Un invitado";
-
-if (!asistencia) { alert("Por favor, selecciona si asistirás o no."); return; }
-if (confirmados > maxPases) { alert(`Lo sentimos, solo tienes ${maxPases} pase(s) disponible(s).`); return; }
-
-const textoWhatsApp = `¡Hola Héctor y Rosalinda! 💍\n\n` +
-    `*Nombre:* ${nombreFinal}\n` +
-    `*Asistencia:* ${asistencia}\n` +
-    `*Pases a usar:* ${confirmados}\n` +
-    ` *Mensaje:* ${mensajeTexto || 'Sin mensaje adicional'}`;
-
-                const tuNumeroWhatsApp = "5212881219554"; 
-                const urlWhatsApp = `https://wa.me/${tuNumeroWhatsApp}?text=${encodeURIComponent(textoWhatsApp)}`;
-
-                window.open(urlWhatsApp, '_blank');
-
-                if (statusRSVP) {
-                    statusRSVP.textContent = '¡Gracias! Serás redirigido a WhatsApp para enviar tu confirmación.';
-                    statusRSVP.style.color = '#00ff00';
-                    statusRSVP.style.marginTop = '10px';
-                    statusRSVP.style.fontWeight = 'bold';
-                }
-                
-                formRSVP.reset();
-                if (inputNombre) inputNombre.value = nombreFinal;
-                if (inputCantidad) inputCantidad.value = maxPases;
-                if (inputConfirmados) inputConfirmados.value = maxPases;    
-            });
-        }
+      }, { once: true });
     });
   </script>
 </body>
