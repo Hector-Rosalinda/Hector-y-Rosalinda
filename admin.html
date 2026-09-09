@@ -1,89 +1,2357 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin Boda</title>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestra Boda</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --altura-seccion: 550px;
+      --azul-principal: #0096ff;
+      --azul-brillante: #00d4ff;
+      --azul-oscuro: #0040ff;
+
+      --perimetro: 677.08;
+      --linea: 110;
+      --vacio: 567.08;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0a0a0f;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* =========================================================
+       SECCIÓN 1 - MARCO
+    ========================================================= */
+
+    .seccion-completa {
+      width: 100vw;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #0f1a2e, #050508);
+    }
+
+    .marco-contenedor {
+      background: #0f141f;
+      border-radius: 30px;
+      padding: 40px;
+      box-shadow: 0 0 80px rgba(0, 150, 255, 0.15);
+      position: relative;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .svg-marco {
+      display: block;
+      width: 350px;
+      height: 350px;
+      overflow: visible;
+    }
+
+    .texto-boda {
+      color: #cce6ff;
+      font-size: 2.8rem;
+      font-family: 'Great Vibes', cursive;
+      letter-spacing: 3px;
+      text-transform: lowercase;
+      text-shadow: 0 0 15px rgba(0, 150, 255, 0.8);
+      text-align: center;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .linea-marco {
+      fill: none;
+      stroke: url(#gradienteLuz);
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: var(--linea) var(--vacio);
+      animation: recorrerMarco 5s linear infinite;
+    }
+
+    .linea-marco-glow {
+      fill: none;
+      stroke: url(#gradienteLuz);
+      stroke-width: 16;
+      stroke-linecap: round;
+      stroke-dasharray: var(--linea) var(--vacio);
+      filter: blur(10px);
+      opacity: 0.55;
+      animation: recorrerMarco 5s linear infinite;
+    }
+
+    @keyframes recorrerMarco {
+      0% {
+        stroke-dashoffset: 0;
+      }
+
+      100% {
+        stroke-dashoffset: -677.08;
+      }
+    }
+
+    /* =========================================================
+       SECCIÓN 2 - MARQUESINA
+    ========================================================= */
+
+    .seccion-marquesina {
+      width: 100%;
+      height: var(--altura-seccion);
+      min-height: var(--altura-seccion);
+      background: linear-gradient(135deg, #0a1525, #0a1f3a);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 10px;
+      overflow: hidden;
+      position: relative;
+      border-top: 2px solid var(--azul-principal);
+      border-bottom: 2px solid var(--azul-principal);
+    }
+
+    .seccion-marquesina::before,
+    .seccion-marquesina::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 100px;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .seccion-marquesina::before {
+      left: 0;
+      background: linear-gradient(to right, #0a1525, transparent);
+    }
+
+    .seccion-marquesina::after {
+      right: 0;
+      background: linear-gradient(to left, #0a1525, transparent);
+    }
+
+    .titulo-marquesina {
+      color: #40b0ff;
+      font-size: 2.5rem;
+      font-family: 'Great Vibes', cursive;
+      text-shadow: 0 0 30px rgba(0, 150, 255, 0.4);
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contenedor-marquesina {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pista-marquesina {
+      display: flex;
+      gap: 10px;
+      animation: moverMarquesina 20s linear infinite;
+      width: max-content;
+    }
+
+    .pista-marquesina figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      margin: 0;
+      flex-shrink: 0;
+    }
+
+    .imagen-marquesina {
+      height: 400px;
+      width: auto;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 150, 255, 0.3);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .imagen-marquesina:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 40px rgba(0, 150, 255, 0.6);
+    }
+
+    .pista-marquesina figcaption {
+      color: #40b0ff;
+      font-size: 12px;
+      opacity: 0.8;
+      text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+    }
+
+    @keyframes moverMarquesina {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* =========================================================
+       SECCIÓN 3 - PROGRAMA
+    ========================================================= */
+
+    .seccion-programa {
+      width: 100%;
+      background-color: #ffffff;
+      color: #0f141f;
+      padding: 80px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .titulo-programa {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: #0f141f;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .lista-programa {
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .lista-programa::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--azul-principal),
+        transparent
+      );
+    }
+
+    .item-programa {
+      position: relative;
+      margin-bottom: 50px;
+      text-align: left;
+    }
+
+    .item-programa:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-programa::before {
+      content: '';
+      position: absolute;
+      left: -45px;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      background-color: #ffffff;
+      border: 3px solid var(--azul-principal);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+    }
+
+    .hora-programa {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--azul-principal);
+      margin-bottom: 5px;
+      letter-spacing: 1px;
+    }
+
+    .nombre-evento {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #0f141f;
+      margin-bottom: 5px;
+    }
+
+    .detalle-evento {
+      display: block;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 1rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* =========================================================
+       SECCIÓN 4 - CUENTA REGRESIVA
+    ========================================================= */
+
+    .seccion-contador {
+      width: 100vw;
+      height: var(--altura-seccion);
+      min-height: var(--altura-seccion);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(
+        ellipse at center,
+        #0a1930,
+        #050508
+      );
+      position: relative;
+      overflow: hidden;
+    }
+
+    .seccion-contador::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(
+          circle at 30% 50%,
+          rgba(0, 120, 255, 0.08),
+          transparent 50%
+        ),
+        radial-gradient(
+          circle at 70% 80%,
+          rgba(0, 200, 255, 0.08),
+          transparent 50%
+        );
+      animation: fondoContador 20s ease-in-out infinite;
+    }
+
+    @keyframes fondoContador {
+      0%, 100% {
+        transform: translate(-10%, -10%) rotate(0deg);
+      }
+
+      50% {
+        transform: translate(10%, 10%) rotate(5deg);
+      }
+    }
+
+    .contenedor-contador {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .titulo-contador {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .fecha-objetivo {
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 50px;
+      background: linear-gradient(
+        135deg,
+        #00d4ff,
+        #0096ff,
+        #60a5fa
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .caja-contador {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .unidad-tiempo {
+      background: rgba(0, 150, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 150, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px 25px;
+      min-width: 120px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .unidad-tiempo:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 150, 255, 0.3);
+    }
+
+    .numero {
+      display: block;
+      font-size: 4rem;
+      font-weight: 700;
+      background: linear-gradient(
+        135deg,
+        #00d4ff,
+        #0096ff
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .etiqueta {
+      display: block;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 10px;
+    }
+
+    .mensaje-contador {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 1.1rem;
+      margin-top: 40px;
+      letter-spacing: 2px;
+      font-style: italic;
+    }
+
+    /* =========================================================
+       SECCIÓN 5 - REPRODUCTOR
+    ========================================================= */
+
+    .seccion-reproductor {
+      width: 100vw;
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      background:
+        url('https://picsum.photos/1920/1080?random=20')
+        no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay-fondo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 15, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 1;
+    }
+
+    .controles-minimalistas {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(15px);
+      padding: 14px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(0, 150, 255, 0.3);
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .controles-minimalistas:hover {
+      background: rgba(0, 0, 0, 0.7);
+      border-color: rgba(0, 150, 255, 0.6);
+      transform: translateX(-50%) translateY(-3px);
+    }
+
+    .btn-control {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-control:hover {
+      background: rgba(0, 150, 255, 0.2);
+      transform: scale(1.15);
+    }
+
+    .btn-control .icono {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+
+    .btn-control .icono.oculto {
+      display: none;
+    }
+
+    /* =========================================================
+       SECCIÓN 6 - RSVP
+    ========================================================= */
+
+    .seccion-rsvp {
+      width: 100%;
+      background: #0a0a0f;
+      padding: 80px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-top: 2px solid var(--azul-principal);
+    }
+
+    .titulo-rsvp {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: #40b0ff;
+      text-shadow: 0 0 30px rgba(0, 150, 255, .4);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .mensaje-bienvenida {
+      text-align: center;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      background-color: rgba(0, 255, 255, 0.1);
+      border: 1px solid #00ffff;
+      border-radius: 8px;
+      color: #00ffff;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .info-invitado-box {
+      padding: 15px;
+      margin-bottom: 20px;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #00ffff;
+      border-radius: 4px;
+      color: #cce6ff;
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .info-invitado-box p {
+      margin: 8px 0;
+      font-size: 1.1em;
+    }
+
+    .info-invitado-box strong {
+      color: #40b0ff;
+    }
+
+    .form-rsvp {
+      max-width: 500px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form-rsvp select,
+    .form-rsvp input,
+    .form-rsvp textarea {
+      padding: 15px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 150, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .form-rsvp select option {
+      background: #0a0a0f;
+    }
+
+    .form-rsvp select:focus,
+    .form-rsvp input:focus,
+    .form-rsvp textarea:focus {
+      border-color: var(--azul-principal);
+      box-shadow: 0 0 20px rgba(0, 150, 255, 0.1);
+    }
+
+    .form-rsvp input::placeholder,
+    .form-rsvp textarea::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .form-rsvp textarea {
+      height: 80px;
+      resize: vertical;
+    }
+
+    .btn-enviar-rsvp {
+      padding: 16px;
+      border-radius: 30px;
+      border: none;
+      background: linear-gradient(
+        135deg,
+        var(--azul-principal),
+        var(--azul-brillante)
+      );
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-enviar-rsvp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 150, 255, 0.3);
+    }
+
+    .btn-enviar-rsvp:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status-rsvp {
+      text-align: center;
+      color: var(--azul-principal);
+      font-size: 0.95rem;
+      margin-top: 10px;
+      min-height: 25px;
+    }
+
+    .status-rsvp.error {
+      color: #ff6b81;
+    }
+
+    .status-rsvp.exito {
+      color: #40ffb0;
+    }
+
+    .invalido {
+      border-color: #ff4d6d !important;
+      box-shadow: 0 0 15px rgba(255, 77, 109, 0.25) !important;
+    }
+
+    .oculto {
+      display: none !important;
+    }
+
+    /* =========================================================
+       MÓVIL
+    ========================================================= */
+
+    @media (max-width: 768px) {
+
+      :root {
+        --altura-seccion: 400px;
+      }
+
+      .seccion-completa {
+        min-height: 500px;
+      }
+
+      .svg-marco {
+        width: 280px;
+        height: 280px;
+      }
+
+      .marco-contenedor {
+        padding: 30px;
+      }
+
+      .texto-boda {
+        font-size: 2.2rem;
+      }
+
+      .imagen-marquesina {
+        height: 280px;
+      }
+
+      .titulo-marquesina {
+        font-size: 2rem;
+      }
+
+      .titulo-programa {
+        font-size: 2.8rem;
+        margin-bottom: 40px;
+      }
+
+      .nombre-evento {
+        font-size: 1.4rem;
+      }
+
+      .fecha-objetivo {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+      }
+
+      .contenedor-contador {
+        padding: 20px;
+      }
+
+      .caja-contador {
+        gap: 15px;
+      }
+
+      .unidad-tiempo {
+        padding: 20px 15px;
+        min-width: 80px;
+      }
+
+      .numero {
+        font-size: 2.8rem;
+      }
+
+      .etiqueta {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+      }
+
+      .mensaje-contador {
+        margin-top: 25px;
+        font-size: 0.9rem;
+      }
+
+      .controles-minimalistas {
+        bottom: 20px;
+        padding: 12px 20px;
+      }
+
+      .titulo-rsvp {
+        font-size: 2.8rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<h2>Crear invitado</h2>
-<input id="token" placeholder="Pega tu github_pat_..." style="width:90%"><br><br>
-<input id="nombre" placeholder="Nombre: Juan y Familia"><br><br>
-<input id="pases" type="number" placeholder="Pases: 2"><br><br>
-<button onclick="crear()">Crear y Generar Link</button>
-<p id="resultado"></p>
-<hr>
-<h3>Invitados guardados</h3>
-<button onclick="cargarTabla()">Actualizar lista</button>
-<table border="1" id="tabla" style="width:100%"></table>
-<script>
-const REPO = "hector-rosalinda/Hector-y-Rosalinda";
-const FILE = "invitados.json";
-const URL_BASE = "https://hector-rosalinda.github.io/Hector-y-Rosalinda/?d=";
 
-async function crear(){
-  const token = document.getElementById('token').value.trim();
-  const nombre = document.getElementById('nombre').value.trim();
-  const pases = document.getElementById('pases').value.trim();
-  if(!token || !nombre || !pases) return alert("Llena todo");
-  
-  const codigo = "HYR" + Math.random().toString(36).substr(2,4).toUpperCase() + "-" + pases;
-  const nuevo = {c: codigo, n: nombre, p: parseInt(pases), confirmado: ""};
+  <!-- =========================================================
+       SECCIÓN 1
+  ========================================================== -->
 
-  // 1. Leer json actual
-  let res = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`, {
-    headers: {Authorization: `Bearer ${token}`}
-  });
-  let fileData = await res.json();
-  let lista = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+  <section class="seccion-completa">
 
-  // 2. Agregar nuevo
-  lista.push(nuevo);
+    <div class="marco-contenedor">
 
-  // 3. Guardar de nuevo
-  await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`, {
-    method: "PUT",
-    headers: {Authorization: `Bearer ${token}`, "Content-Type": "application/json"},
-    body: JSON.stringify({
-      message: `Nuevo invitado ${codigo}`,
-      content: btoa(unescape(encodeURIComponent(JSON.stringify(lista, null, 2)))),
-      sha: fileData.sha
-    })
-  });
+      <svg class="svg-marco" viewBox="0 0 200 200">
 
-  // 4. Generar link base64
-  let json = JSON.stringify(nuevo);
-  let b64 = btoa(unescape(encodeURIComponent(json)));
-  let link = URL_BASE + b64;
+        <defs>
 
-  document.getElementById('resultado').innerHTML = `
-    <b>${nombre} creado:</b><br>
-    Código: ${codigo}<br>
-    <a href="${link}" target="_blank">${link}</a><br><br>
-    <a href="https://wa.me/?text=${encodeURIComponent("Hola " + nombre + "! Te invito a mi boda: " + link)}">Enviar por WhatsApp</a>
-  `;
-}
-async function cargarTabla(){
-  const token = document.getElementById('token').value.trim();
-  if(!token) return alert("Pega tu token primero");
-  let res = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`, {
-    headers: {Authorization: `Bearer ${token}`}
-  });
-  let fileData = await res.json();
-  let lista = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
-  
-  let html = "<tr><th>Código</th><th>Nombre</th><th>Pases</th><th>Confirmado</th><th>Link</th></tr>";
-  lista.forEach(i => {
-    let b64 = btoa(unescape(encodeURIComponent(JSON.stringify(i))));
-    let link = URL_BASE + b64;
-    html += `<tr>
-      <td>${i.c}</td>
-      <td>${i.n}</td>
-      <td>${i.p}</td>
-      <td>${i.confirmado ? "✅ " + i.confirmado.substr(0,10) : "❌"}</td>
-      <td><a href="${link}" target="_blank">Ver</a></td>
-    </tr>`;
-  });
-  document.getElementById('tabla').innerHTML = html;
-}
-</script>
+          <linearGradient
+            id="gradienteLuz"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
+            <stop
+              offset="0%"
+              stop-color="#00e5ff"
+              stop-opacity="1"
+            />
+
+            <stop
+              offset="40%"
+              stop-color="#0096ff"
+              stop-opacity="0.9"
+            />
+
+            <stop
+              offset="100%"
+              stop-color="#0040ff"
+              stop-opacity="0.1"
+            />
+          </linearGradient>
+
+          <clipPath id="clipImagen">
+
+            <rect
+              x="10"
+              y="10"
+              width="180"
+              height="180"
+              rx="28"
+              ry="28"
+            />
+
+          </clipPath>
+
+        </defs>
+
+        <rect
+          x="0"
+          y="0"
+          width="200"
+          height="200"
+          rx="25"
+          ry="25"
+          fill="#0f141f11"
+        />
+
+        <rect
+          x="10"
+          y="10"
+          width="180"
+          height="180"
+          rx="28"
+          ry="28"
+          fill="none"
+          stroke="#1a2a4a"
+          stroke-width="2"
+        />
+
+        <rect
+          class="linea-marco-glow"
+          x="10"
+          y="10"
+          width="180"
+          height="180"
+          rx="28"
+          ry="28"
+        />
+
+        <rect
+          class="linea-marco"
+          x="10"
+          y="10"
+          width="180"
+          height="180"
+          rx="28"
+          ry="28"
+        />
+
+        <image
+          href="https://picsum.photos/400"
+          x="10"
+          y="10"
+          width="180"
+          height="180"
+          preserveAspectRatio="xMidYMid slice"
+          clip-path="url(#clipImagen)"
+        />
+
+        <rect
+          x="10"
+          y="10"
+          width="180"
+          height="180"
+          rx="28"
+          ry="28"
+          fill="none"
+          stroke="#0096ff"
+          stroke-width="1"
+          opacity="0.3"
+          pointer-events="none"
+        />
+
+      </svg>
+
+      <h2 class="texto-boda">
+        Nuestra boda<br>
+        Héctor y Rosalinda
+      </h2>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECCIÓN 2
+  ========================================================== -->
+
+  <section class="seccion-marquesina">
+
+    <h2 class="titulo-marquesina">
+      ✨ Nuestros recuerdos ✨
+    </h2>
+
+    <div class="contenedor-marquesina">
+
+      <div
+        class="pista-marquesina"
+        id="pistaMarquesina"
+      ></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECCIÓN 3
+  ========================================================== -->
+
+  <section class="seccion-programa">
+
+    <h2 class="titulo-programa">
+      Programa de Evento
+    </h2>
+
+    <div class="lista-programa">
+
+      <div class="item-programa">
+
+        <span class="hora-programa">
+          4:00 PM
+        </span>
+
+        <span class="nombre-evento">
+          Ceremonia Religiosa
+        </span>
+
+        <span class="detalle-evento">
+          Iglesia San Francisco, Centro Histórico
+        </span>
+
+      </div>
+
+
+      <div class="item-programa">
+
+        <span class="hora-programa">
+          6:00 PM
+        </span>
+
+        <span class="nombre-evento">
+          Recepción y Cóctel
+        </span>
+
+        <span class="detalle-evento">
+          Jardín Las Bugambilias, Terraza Principal
+        </span>
+
+      </div>
+
+
+      <div class="item-programa">
+
+        <span class="hora-programa">
+          8:00 PM
+        </span>
+
+        <span class="nombre-evento">
+          Cena y Brindis
+        </span>
+
+        <span class="detalle-evento">
+          Salón Imperial, Mesa de Honor
+        </span>
+
+      </div>
+
+
+      <div class="item-programa">
+
+        <span class="hora-programa">
+          10:00 PM
+        </span>
+
+        <span class="nombre-evento">
+          ¡A Bailar!
+        </span>
+
+        <span class="detalle-evento">
+          Pista de baile, DJ en vivo hasta el amanecer
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECCIÓN 4
+  ========================================================== -->
+
+  <section class="seccion-contador">
+
+    <div class="contenedor-contador">
+
+      <h2 class="titulo-contador">
+        Faltan para el
+      </h2>
+
+      <h1 class="fecha-objetivo">
+        12 de Diciembre de 2026
+      </h1>
+
+      <div class="caja-contador">
+
+        <div class="unidad-tiempo">
+          <span
+            class="numero"
+            id="dias"
+          >00</span>
+
+          <span class="etiqueta">
+            Días
+          </span>
+        </div>
+
+
+        <div class="unidad-tiempo">
+          <span
+            class="numero"
+            id="horas"
+          >00</span>
+
+          <span class="etiqueta">
+            Horas
+          </span>
+        </div>
+
+
+        <div class="unidad-tiempo">
+          <span
+            class="numero"
+            id="minutos"
+          >00</span>
+
+          <span class="etiqueta">
+            Minutos
+          </span>
+        </div>
+
+
+        <div class="unidad-tiempo">
+          <span
+            class="numero"
+            id="segundos"
+          >00</span>
+
+          <span class="etiqueta">
+            Segundos
+          </span>
+        </div>
+
+      </div>
+
+      <p
+        class="mensaje-contador"
+        id="mensajeContador"
+      >
+        ¡Prepara la celebración!
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECCIÓN 5
+  ========================================================== -->
+
+  <section class="seccion-reproductor">
+
+    <div class="overlay-fondo"></div>
+
+    <div class="controles-minimalistas">
+
+      <button
+        class="btn-control"
+        id="btnPlayPause"
+        title="Reproducir / Pausar"
+      >
+
+        <svg
+          class="icono"
+          viewBox="0 0 24 24"
+          id="iconoPlay"
+        >
+          <polygon
+            points="5,3 19,12 5,21"
+            fill="white"
+          />
+        </svg>
+
+
+        <svg
+          class="icono oculto"
+          viewBox="0 0 24 24"
+          id="iconoPause"
+        >
+          <rect
+            x="6"
+            y="4"
+            width="4"
+            height="16"
+            fill="white"
+          />
+
+          <rect
+            x="14"
+            y="4"
+            width="4"
+            height="16"
+            fill="white"
+          />
+        </svg>
+
+      </button>
+
+
+      <button
+        class="btn-control"
+        id="btnMute"
+        title="Silenciar / Activar sonido"
+      >
+
+        <svg
+          class="icono"
+          viewBox="0 0 24 24"
+          id="iconoVolumen"
+        >
+
+          <path
+            d="M3,10V14H7L12,19V5L7,10H3Z"
+            fill="white"
+          />
+
+          <path
+            d="M16.5,12C16.5,10.23 15.48,8.71 14,7.97V16.03C15.48,15.29 16.5,13.77 16.5,12Z"
+            fill="white"
+          />
+
+          <path
+            d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23Z"
+            fill="white"
+          />
+
+        </svg>
+
+
+        <svg
+          class="icono oculto"
+          viewBox="0 0 24 24"
+          id="iconoMute"
+        >
+
+          <path
+            d="M3,10V14H7L12,19V5L7,10H3Z"
+            fill="white"
+          />
+
+          <line
+            x1="19"
+            y1="5"
+            x2="13"
+            y2="11"
+            stroke="white"
+            stroke-width="2"
+          />
+
+          <line
+            x1="13"
+            y1="5"
+            x2="19"
+            y2="11"
+            stroke="white"
+            stroke-width="2"
+          />
+
+        </svg>
+
+      </button>
+
+    </div>
+
+
+    <audio
+      id="reproductorAudio"
+      preload="auto"
+      autoplay
+      loop
+    >
+      <source
+        src="https://files.catbox.moe/neoat4.mp3"
+        type="audio/mpeg"
+      >
+    </audio>
+
+  </section>
+
+
+  <!-- =========================================================
+       SECCIÓN 6 - RSVP
+       
+       IMPORTANTE:
+       Esta sección comienza oculta.
+       
+       JavaScript solamente la muestra cuando existen:
+       
+       ?inv=Nombre&p=2
+  ========================================================== -->
+
+  <section
+    class="seccion-rsvp oculto"
+    id="seccionRSVP"
+  >
+
+    <h2 class="titulo-rsvp">
+      Confirma tu asistencia
+    </h2>
+
+
+    <div
+      id="mensajeBienvenida"
+      class="mensaje-bienvenida oculto"
+    ></div>
+
+
+    <div
+      id="infoInvitadoBox"
+      class="info-invitado-box oculto"
+    >
+
+      <p>
+        <strong>Invitado:</strong>
+        <span id="nombreInvitado"></span>
+      </p>
+
+      <p>
+        <strong>Pases asignados:</strong>
+        <span id="numeroPersonas"></span>
+      </p>
+
+    </div>
+
+
+    <input
+      type="hidden"
+      id="nombreCompleto"
+    >
+
+    <input
+      type="hidden"
+      id="cantidadPersonas"
+    >
+
+
+    <form
+      class="form-rsvp"
+      id="formRSVP"
+    >
+
+      <select
+        id="asistencia"
+        required
+      >
+
+        <option
+          value=""
+          disabled
+          selected
+        >
+          Selecciona una opción
+        </option>
+
+        <option value="SI">
+          🎉 ¡Sí, ahí estaré!
+        </option>
+
+        <option value="NO">
+          😢 No podré asistir
+        </option>
+
+      </select>
+
+
+      <input
+        type="number"
+        id="confirmados"
+        min="1"
+        placeholder="¿Cuántos pases usarás?"
+        required
+      >
+
+
+      <textarea
+        id="mensaje"
+        placeholder="Mensaje para los Novios (opcional)"
+      ></textarea>
+
+
+      <button
+        type="submit"
+        class="btn-enviar-rsvp"
+        id="btnEnviarRSVP"
+      >
+        Enviar confirmación por WhatsApp
+      </button>
+
+
+      <div
+        class="status-rsvp"
+        id="statusRSVP"
+      ></div>
+
+    </form>
+
+  </section>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================== -->
+
+  <script>
+
+    /* =========================================================
+       MARQUESINA
+    ========================================================== */
+
+    const imagenesMarquesina = [
+
+      {
+        url: 'https://picsum.photos/300/400?random=1',
+        alt: 'Imagen 1',
+        titulo: 'Paisaje 1'
+      },
+
+      {
+        url: 'https://picsum.photos/500/400?random=2',
+        alt: 'Imagen 2',
+        titulo: 'Paisaje 2'
+      },
+
+      {
+        url: 'https://picsum.photos/200/400?random=3',
+        alt: 'Imagen 3',
+        titulo: 'Paisaje 3'
+      },
+
+      {
+        url: 'https://picsum.photos/600/400?random=4',
+        alt: 'Imagen 4',
+        titulo: 'Paisaje 4'
+      },
+
+      {
+        url: 'https://picsum.photos/350/400?random=5',
+        alt: 'Imagen 5',
+        titulo: 'Paisaje 5'
+      },
+
+      {
+        url: 'https://picsum.photos/450/400?random=6',
+        alt: 'Imagen 6',
+        titulo: 'Paisaje 6'
+      }
+
+    ];
+
+
+    function crearMarquesina() {
+
+      const pista =
+        document.getElementById('pistaMarquesina');
+
+      if (!pista) return;
+
+      pista.innerHTML = '';
+
+      const duplicadas = [
+        ...imagenesMarquesina,
+        ...imagenesMarquesina
+      ];
+
+      duplicadas.forEach(img => {
+
+        const figure =
+          document.createElement('figure');
+
+        const imagen =
+          document.createElement('img');
+
+        imagen.src = img.url;
+        imagen.alt = img.alt;
+        imagen.className = 'imagen-marquesina';
+        imagen.loading = 'lazy';
+
+        const caption =
+          document.createElement('figcaption');
+
+        caption.textContent = img.titulo;
+
+        figure.appendChild(imagen);
+        figure.appendChild(caption);
+
+        pista.appendChild(figure);
+
+      });
+
+    }
+
+
+    /* =========================================================
+       CUENTA REGRESIVA
+    ========================================================== */
+
+    function iniciarContador() {
+
+      const fechaObjetivo =
+        new Date('2026-12-12T00:00:00').getTime();
+
+
+      function actualizarContador() {
+
+        const diferencia =
+          fechaObjetivo - Date.now();
+
+
+        if (diferencia <= 0) {
+
+          document.getElementById('dias')
+            .textContent = '00';
+
+          document.getElementById('horas')
+            .textContent = '00';
+
+          document.getElementById('minutos')
+            .textContent = '00';
+
+          document.getElementById('segundos')
+            .textContent = '00';
+
+          document.getElementById('mensajeContador')
+            .textContent = '🎉 ¡Llegó el día! 🎉';
+
+          return;
+
+        }
+
+
+        const d =
+          Math.floor(
+            diferencia / 86400000
+          );
+
+        const h =
+          Math.floor(
+            (diferencia % 86400000) /
+            3600000
+          );
+
+        const m =
+          Math.floor(
+            (diferencia % 3600000) /
+            60000
+          );
+
+        const s =
+          Math.floor(
+            (diferencia % 60000) /
+            1000
+          );
+
+
+        document.getElementById('dias')
+          .textContent =
+          String(d).padStart(2, '0');
+
+        document.getElementById('horas')
+          .textContent =
+          String(h).padStart(2, '0');
+
+        document.getElementById('minutos')
+          .textContent =
+          String(m).padStart(2, '0');
+
+        document.getElementById('segundos')
+          .textContent =
+          String(s).padStart(2, '0');
+
+      }
+
+
+      actualizarContador();
+
+      setInterval(
+        actualizarContador,
+        1000
+      );
+
+    }
+
+
+    /* =========================================================
+       REPRODUCTOR
+    ========================================================== */
+
+    class ReproductorMusica {
+
+      constructor() {
+
+        this.audio =
+          document.getElementById(
+            'reproductorAudio'
+          );
+
+        this.btnPlayPause =
+          document.getElementById(
+            'btnPlayPause'
+          );
+
+        this.btnMute =
+          document.getElementById(
+            'btnMute'
+          );
+
+        this.iconoPlay =
+          document.getElementById(
+            'iconoPlay'
+          );
+
+        this.iconoPause =
+          document.getElementById(
+            'iconoPause'
+          );
+
+        this.iconoVolumen =
+          document.getElementById(
+            'iconoVolumen'
+          );
+
+        this.iconoMute =
+          document.getElementById(
+            'iconoMute'
+          );
+
+        this.estaReproduciendo = false;
+        this.estaSilenciado = false;
+
+        this.inicializar();
+
+      }
+
+
+      inicializar() {
+
+        this.configurarEventos();
+
+        this.reproducirAutomaticamente();
+
+      }
+
+
+      configurarEventos() {
+
+        this.btnPlayPause?.addEventListener(
+          'click',
+          () => this.togglePlayPause()
+        );
+
+        this.btnMute?.addEventListener(
+          'click',
+          () => this.toggleMute()
+        );
+
+      }
+
+
+      reproducirAutomaticamente() {
+
+        if (!this.audio) return;
+
+        this.audio.play()
+
+          .then(() => {
+
+            this.estaReproduciendo = true;
+
+            this.actualizarIconosPlay();
+
+          })
+
+          .catch(() => {
+
+            this.estaReproduciendo = false;
+
+            this.actualizarIconosPlay();
+
+          });
+
+      }
+
+
+      togglePlayPause() {
+
+        this.estaReproduciendo
+          ? this.pausar()
+          : this.reproducir();
+
+      }
+
+
+      reproducir() {
+
+        if (!this.audio) return;
+
+        this.audio.play()
+
+          .then(() => {
+
+            this.estaReproduciendo = true;
+
+            this.actualizarIconosPlay();
+
+          })
+
+          .catch(() => {});
+
+      }
+
+
+      pausar() {
+
+        if (!this.audio) return;
+
+        this.audio.pause();
+
+        this.estaReproduciendo = false;
+
+        this.actualizarIconosPlay();
+
+      }
+
+
+      actualizarIconosPlay() {
+
+        this.iconoPlay.classList.toggle(
+          'oculto',
+          this.estaReproduciendo
+        );
+
+        this.iconoPause.classList.toggle(
+          'oculto',
+          !this.estaReproduciendo
+        );
+
+      }
+
+
+      toggleMute() {
+
+        this.estaSilenciado =
+          !this.estaSilenciado;
+
+        this.audio.muted =
+          this.estaSilenciado;
+
+        this.iconoVolumen.classList.toggle(
+          'oculto',
+          this.estaSilenciado
+        );
+
+        this.iconoMute.classList.toggle(
+          'oculto',
+          !this.estaSilenciado
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       CONFIGURACIÓN DE WHATSAPP
+    ========================================================== */
+
+    /*
+      AQUÍ PONES EL NÚMERO QUE RECIBIRÁ
+      LAS CONFIRMACIONES.
+
+      Para México:
+
+      52 + 10 dígitos
+
+      SIN:
+      +
+      espacios
+      guiones
+      paréntesis
+
+      Ejemplo:
+
+      522881234567
+    */
+
+    const WHATSAPP_DESTINO =
+      '522881234567';
+
+
+    /* =========================================================
+       OBTENER PARÁMETROS DE LA URL
+    ========================================================== */
+
+    function obtenerDatosInvitacion() {
+
+      const parametros =
+        new URLSearchParams(
+          window.location.search
+        );
+
+
+      /*
+        Ejemplo:
+
+        ?inv=José+Pérez+Muñoz&p=3
+
+        inv = José Pérez Muñoz
+        p   = 3
+      */
+
+      const nombre =
+        parametros.get('inv');
+
+      const pasesTexto =
+        parametros.get('p');
+
+
+      /*
+        SI NO EXISTEN LOS PARÁMETROS,
+        DEVOLVEMOS NULL.
+      */
+
+      if (!nombre || !pasesTexto) {
+
+        return null;
+
+      }
+
+
+      const pases =
+        Number.parseInt(
+          pasesTexto,
+          10
+        );
+
+
+      /*
+        Validamos que sea un número
+        entero mayor a cero.
+      */
+
+      if (
+        !Number.isInteger(pases) ||
+        pases < 1
+      ) {
+
+        return null;
+
+      }
+
+
+      return {
+
+        nombre: nombre.trim(),
+
+        pases: pases
+
+      };
+
+    }
+
+
+    /* =========================================================
+       CARGAR INVITACIÓN
+    ========================================================== */
+
+    function cargarDatosInvitacion() {
+
+      const datos =
+        obtenerDatosInvitacion();
+
+
+      const seccionRSVP =
+        document.getElementById(
+          'seccionRSVP'
+        );
+
+
+      /*
+        SI NO HAY ?inv=...&p=...
+        
+        NO MOSTRAMOS LA SECCIÓN.
+      */
+
+      if (!datos) {
+
+        seccionRSVP.classList.add(
+          'oculto'
+        );
+
+        return false;
+
+      }
+
+
+      /*
+        SÍ HAY INVITACIÓN:
+        MOSTRAMOS LA SECCIÓN.
+      */
+
+      seccionRSVP.classList.remove(
+        'oculto'
+      );
+
+
+      const nombreInvitado =
+        document.getElementById(
+          'nombreInvitado'
+        );
+
+      const numeroPersonas =
+        document.getElementById(
+          'numeroPersonas'
+        );
+
+      const nombreCompleto =
+        document.getElementById(
+          'nombreCompleto'
+        );
+
+      const cantidadPersonas =
+        document.getElementById(
+          'cantidadPersonas'
+        );
+
+      const mensajeBienvenida =
+        document.getElementById(
+          'mensajeBienvenida'
+        );
+
+      const confirmados =
+        document.getElementById(
+          'confirmados'
+        );
+
+
+      /*
+        textContent permite mostrar correctamente
+        tildes, ñ, etc.
+      */
+
+      nombreInvitado.textContent =
+        datos.nombre;
+
+      numeroPersonas.textContent =
+        datos.pases;
+
+
+      nombreCompleto.value =
+        datos.nombre;
+
+      cantidadPersonas.value =
+        datos.pases;
+
+
+      /*
+        El máximo de pases está determinado
+        por el parámetro ?p=
+      */
+
+      confirmados.max =
+        datos.pases;
+
+
+      mensajeBienvenida.textContent =
+        `¡Hola, ${datos.nombre}! Nos da mucho gusto invitarte a nuestra boda. 💙`;
+
+
+      mensajeBienvenida.classList.remove(
+        'oculto'
+      );
+
+
+      document
+        .getElementById('infoInvitadoBox')
+        .classList.remove('oculto');
+
+
+      return true;
+
+    }
+
+
+    /* =========================================================
+       CAMBIAR CANTIDAD DE PASES
+       SEGÚN ASISTENCIA
+    ========================================================== */
+
+    function actualizarPasesSegunAsistencia() {
+
+      const asistencia =
+        document.getElementById(
+          'asistencia'
+        );
+
+      const confirmados =
+        document.getElementById(
+          'confirmados'
+        );
+
+      const cantidadPersonas =
+        document.getElementById(
+          'cantidadPersonas'
+        );
+
+
+      const pasesAsignados =
+        Number.parseInt(
+          cantidadPersonas.value,
+          10
+        );
+
+
+      /*
+        SI NO ASISTE:
+
+        Pases a usar = 0
+
+        Y BLOQUEAMOS EL CAMPO.
+      */
+
+      if (
+        asistencia.value === 'NO'
+      ) {
+
+        confirmados.value = '0';
+
+        confirmados.disabled = true;
+
+        confirmados.required = false;
+
+        confirmados.classList.remove(
+          'invalido'
+        );
+
+        return;
+
+      }
+
+
+      /*
+        SI ASISTE:
+
+        Permitimos elegir entre
+        1 y los pases asignados.
+      */
+
+      if (
+        asistencia.value === 'SI'
+      ) {
+
+        confirmados.disabled = false;
+
+        confirmados.required = true;
+
+        confirmados.min = 1;
+
+        confirmados.max =
+          pasesAsignados;
+
+        confirmados.value = '';
+
+        confirmados.placeholder =
+          `Pases a usar (1 a ${pasesAsignados})`;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       VALIDAR PASES
+    ========================================================== */
+
+    function validarPases() {
+
+      const asistencia =
+        document.getElementById(
+          'asistencia'
+        ).value;
+
+
+      const confirmados =
+        document.getElementById(
+          'confirmados'
+        );
+
+
+      const cantidadPersonas =
+        document.getElementById(
+          'cantidadPersonas'
+        );
+
+
+      const pasesAsignados =
+        Number.parseInt(
+          cantidadPersonas.value,
+          10
+        );
+
+
+      const pasesUsar =
+        Number.parseInt(
+          confirmados.value,
+          10
+        );
+
+
+      confirmados.classList.remove(
+        'invalido'
+      );
+
+
+      /*
+        NO ASISTE
+        SIEMPRE ES 0.
+      */
+
+      if (
+        asistencia === 'NO'
+      ) {
+
+        confirmados.value = '0';
+
+        return true;
+
+      }
+
+
+      /*
+        SÍ ASISTE
+        DEBE SER ENTRE 1 Y EL MÁXIMO.
+      */
+
+      if (
+        asistencia === 'SI'
+      ) {
+
+        if (
+          !Number.isInteger(pasesUsar) ||
+          pasesUsar < 1 ||
+          pasesUsar > pasesAsignados
+        ) {
+
+          confirmados.classList.add(
+            'invalido'
+          );
+
+          return false;
+
+        }
+
+      }
+
+
+      return true;
+
+    }
+
+
+    /* =========================================================
+       ENVIAR RESPUESTA A WHATSAPP
+    ========================================================== */
+
+    function enviarConfirmacionWhatsApp(
+      evento
+    ) {
+
+      evento.preventDefault();
+
+
+      const status =
+        document.getElementById(
+          'statusRSVP'
+        );
+
+
+      const boton =
+        document.getElementById(
+          'btnEnviarRSVP'
+        );
+
+
+      const nombre =
+        document.getElementById(
+          'nombreCompleto'
+        ).value.trim();
+
+
+      const asistencia =
+        document.getElementById(
+          'asistencia'
+        ).value;
+
+
+      const confirmados =
+        document.getElementById(
+          'confirmados'
+        ).value;
+
+
+      const mensaje =
+        document.getElementById(
+          'mensaje'
+        ).value.trim();
+
+
+      /*
+        VALIDACIÓN BÁSICA.
+      */
+
+      if (
+        !nombre ||
+        !asistencia
+      ) {
+
+        status.textContent =
+          'Por favor completa los datos.';
+
+        status.className =
+          'status-rsvp error';
+
+        return;
+
+      }
+
+
+      /*
+        VALIDAMOS LOS PASES.
+      */
+
+      if (
+        !validarPases()
+      ) {
+
+        const pasesAsignados =
+          document.getElementById(
+            'cantidadPersonas'
+          ).value;
+
+
+        status.textContent =
+          `Puedes usar entre 1 y ${pasesAsignados} pase(s).`;
+
+        status.className =
+          'status-rsvp error';
+
+        return;
+
+      }
+
+
+      /*
+        Convertimos SI / NO
+        al texto que llegará.
+      */
+
+      const textoAsistencia =
+        asistencia === 'SI'
+          ? 'Sí'
+          : 'No';
+
+
+      /*
+        MENSAJE FINAL.
+      */
+
+      const textoWhatsApp =
+`Respuesta de invitación
+
+Nombre: ${nombre}
+Asistencia: ${textoAsistencia}
+Pases a usar: ${confirmados}
+Mensaje: ${mensaje || 'Sin mensaje'}`;
+
+
+      /*
+        encodeURIComponent permite que
+        tildes, ñ, emojis y saltos de línea
+        lleguen correctamente a WhatsApp.
+      */
+
+      const urlWhatsApp =
+        `https://wa.me/${WHATSAPP_DESTINO}?text=${encodeURIComponent(
+          textoWhatsApp
+        )}`;
+
+      status.textContent =
+        'Abriendo WhatsApp...';
+
+      status.className =
+        'status-rsvp exito';
+
+
+      boton.disabled = true;
+
+
+      /*
+        ABRIR WHATSAPP
+      */
+
+      window.open(
+        urlWhatsApp,
+        '_blank',
+        'noopener,noreferrer'
+      );
+
+      setTimeout(
+        () => {
+          boton.disabled = false;
+        },
+        1500
+      );
+    }
+
+
+    /* =========================================================
+       INICIALIZAR RSVP
+    ========================================================== */
+
+    function inicializarRSVP() {
+
+      /*
+        Primero comprobamos si existen
+        los parámetros.
+      */
+
+      const existeInvitacion =
+        cargarDatosInvitacion();
+
+
+      /*
+        Si no hay invitación,
+        terminamos aquí.
+      */
+
+      if (!existeInvitacion) {
+
+        return;
+
+      }
+
+
+      const formulario =
+        document.getElementById(
+          'formRSVP'
+        );
+
+      const asistencia =
+        document.getElementById(
+          'asistencia'
+        );
+
+      /*
+        Evento del formulario.
+      */
+
+      formulario?.addEventListener(
+        'submit',
+        enviarConfirmacionWhatsApp
+      );
+
+      /*
+        Evento para cambiar
+        automáticamente los pases.
+      */
+
+      asistencia?.addEventListener(
+        'change',
+        actualizarPasesSegunAsistencia
+      );
+    }
+
+    /* =========================================================
+       INICIALIZACIÓN GENERAL
+    ========================================================== */
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      () => {
+
+        crearMarquesina();
+
+        iniciarContador();
+
+        inicializarRSVP();
+
+
+        const rep =
+          new ReproductorMusica();
+
+        /*
+          Fallback:
+          primer clic de la página
+          intenta iniciar la música.
+        */
+
+        document.addEventListener(
+          'click',
+          () => {
+            if (
+              rep.audio &&
+              !rep.estaReproduciendo
+            ) {
+              rep.reproducir();
+            }
+          },
+          {
+            once: true
+          }
+        );
+      }
+    );
+
+  </script>
+
 </body>
 </html>
